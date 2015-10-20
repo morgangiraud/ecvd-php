@@ -22,9 +22,10 @@ Tool that will be used in this course:
 --
 # GIT
 - GIT Installation: See the README
-- Training on http://pcottle.github.io/learnGitBranching (you can also check this free [tutorial](https://try.github.io/))
+- Training on http://pcottle.github.io/learnGitBranching
     - Exercice 1-4, normal mode 
     - Exercice 1-6, remote mode
+- (you can also check this free [tutorial](https://try.github.io/))
 
 Note:
 - php ecvd repo cloned locally
@@ -43,8 +44,7 @@ Note:
 
 ---
 # PHP
-### A little Instroduction to PHP
-Some resources:
+###### A little Instroduction to PHP
 - [Wikipedia](https://en.wikipedia.org/wiki/PHP)
 - Check the RESOURCES.md file for more resources
 
