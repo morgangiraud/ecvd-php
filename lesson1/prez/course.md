@@ -8,24 +8,24 @@
 ## The teacher: Morgan Giraud
 ![Morgan Giraud](https://en.gravatar.com/userimage/27393472/35e00906a5a12cd6a66616944e8d5edf.png?size=200)
 
-[Linkedin](https://fr.linkedin.com/in/morgangiraud)
-[Github](https://github.com/morgangiraud)
+[Linkedin](https://fr.linkedin.com/in/morgangiraud) <!-- .element: target="_blank" -->
+[Github](https://github.com/morgangiraud) <!-- .element: target="_blank" -->
 
 ---
 #Tools
 Tool that will be used in this course:
-- [Sublime Text 3](http://www.sublimetext.com/3)
-- [Git](https://git-scm.com/)
-- [PHP >5.5](http://www.php.net/)
-- [Nginx](http://nginx.org/)
+- [Sublime Text 3](http://www.sublimetext.com/3) <!-- .element: target="_blank" -->
+- [Git](https://git-scm.com/) <!-- .element: target="_blank" -->
+- [PHP >5.5](http://www.php.net/) <!-- .element: target="_blank" -->
+- [Nginx](http://nginx.org/) <!-- .element: target="_blank" -->
 
 --
 # GIT
 - GIT Installation: See the README
-- Training on http://pcottle.github.io/learnGitBranching
+- Training on http://pcottle.github.io/learnGitBranching <!-- .element: target="_blank" -->
     - Exercice 1-4, normal mode 
     - Exercice 1-6, remote mode
-- (you can also check this free [tutorial](https://try.github.io/))
+- (you can also check this free [tutorial](https://try.github.io/)) <!-- .element: target="_blank" -->
 
 Note:
 - php ecvd repo cloned locally
@@ -37,20 +37,15 @@ Note:
   - `git status`
   - `git merge`
 
---
-## Homework
-- Finish level 2 of **normal mode** and level 1 of remote mode
-- Learn how to fork and create a pull request on github and do it with this repo.
-
 ---
 # PHP
 ###### A little Instroduction to PHP
-- [Wikipedia](https://en.wikipedia.org/wiki/PHP)
+- [Wikipedia](https://en.wikipedia.org/wiki/PHP) <!-- .element: target="_blank" -->
 - Check the RESOURCES.md file for more resources
 
 ---
 # Zend certification
-Objectif: [Zend Certification](http://www.zend.com/en/services/certification/php-5-certification)
+Objectif: [Zend Certification](http://www.zend.com/en/services/certification/php-5-certification) <!-- .element: target="_blank" -->
 Overview of all the subject that will be studied in this course:
    - PHP Basics (Focus on Namespaces and extensions) <!-- .element: class="fragment" -->
    - Arrays (Focus on array functions) <!-- .element: class="fragment" -->
@@ -62,7 +57,8 @@ Overview of all the subject that will be studied in this course:
    - Not in this course: <!-- .element: class="fragment" --> ~~OOP~~
 
 --
-## Homework
+# Homework
+- Finish level 2 of **normal mode** and level 1 of remote mode on the [training](http://pcottle.github.io/learnGitBranching) <!-- .element: target="_blank" -->
 Read all the following subjects in the first hundreds page of the zend certification guide
 
 Note: All the students have the Zend certification guide
