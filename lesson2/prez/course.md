@@ -103,12 +103,19 @@ session_start();
 
 ```
 <!-- .element: class="fragment" -->
+After you started the session, the `$_SESSION` wiil be populated with the current session data. 
+
+<!-- .element: class="fragment" -->
+Finnaly, you can kill a session using `session_destroy();` 
+
+<!-- .element: class="fragment" -->
+
 --
 # Exercice
 Add some persistence to your login system and a logout system
 - Start your session
 - When the user logged in, store those information inside the session
-- Check that you can relaod the page and still being logged in
+- Check that you can reload the page and still being logged in
 - Display a logout link and redirect once unlogged to the index page
 
 ---
@@ -143,6 +150,11 @@ Now, steal someone else cookie!
 - Ask him to give you his `PHPSESSID` cookie value
 - Edit your cookie `PHPSESSID` and change the value with his value
 - Check that you're logged in with his account!
+
+---
+# Security
+To prevent this kind of **session fixation** attack. Add a call right after all your `session_start();`
+> `session_regenerate_id();`
 
 ---
 
