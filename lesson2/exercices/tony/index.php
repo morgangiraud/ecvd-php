@@ -2,10 +2,11 @@
 <?php session_regenerate_id();
 
     
-    if( $_SESSION["logged"] ) {
+    if( $_SESSION["logged"] ) { ?>
     
-        echo 'Vous êtes connecté.';
-    
+        <p>Vous êtes connecté.</p><br>
+        <a href="logout.php">Logout</a>
+    <?php
     } elseif( $_POST["username"] && $_POST["password"] ) {
         
         $handle = fopen("users.txt", "r");
