@@ -103,31 +103,65 @@ session_start();
 
 ```
 <!-- .element: class="fragment" -->
+After you started the session, the `$_SESSION` wiil be populated with the current session data. 
+
+<!-- .element: class="fragment" -->
+Finnaly, you can kill a session using `session_destroy();` 
+
+<!-- .element: class="fragment" -->
+
 --
 # Exercice
 Add some persistence to your login system and a logout system
 - Start your session
 - When the user logged in, store those information inside the session
-- Check that you can relaod the page and still being logged in
+- Check that you can reload the page and still being logged in
 - Display a logout link and redirect once unlogged to the index page
+
+---
+
+# Cookie?
+Let's open the Chrome console and analyse what happens on the browser side
+- Type `CMD + alt + i` (OSX) to show the console and access cookies
+![ console picture ](chrome-console-cookie-folder.png)
 
 --
 # Cookie?
-Let's open the Chrome console and analyse what happens on the browser side
-- Type `CMD + alt + i` (OSX) to show the console
-- Log in and look at the response
-- Access to the new cookie
+- Delete any existing cookie
+- Remove the `session_start();` in your file and reload your page
+- See that no cookie has been added
+- Add back the `session_start();` call and reload your page
+- See that now, you have a cookie
+
+-- 
+# Cookie?
+PHP do the hard work of creating a cookie and linking it to a session for you.
+You can find this link in the cookie named `PHPSESSID` by default.
+
+Now, what would happend if you could get the content of that cookie from someone else ?
+
+-- 
+# Cookie thief!
+Thanks to this little [plugin](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=en) <!-- .element: target="_blank" --> you can edit your own cookie.
+> First check that you lost your session if you edit your cookie
+
+Now, steal someone else cookie!
+- Access the webserver of another student
+- Ask him to give you his `PHPSESSID` cookie value
+- Edit your cookie `PHPSESSID` and change the value with his value
+- Check that you're logged in with his account!
 
 ---
-# File System
-Let's have a look at all the [filesystem functions](http://php.net/manual/en/book.filesystem.php) for the file system. <!-- .element: target="_blank" -->
+# Security
+To prevent this kind of **session fixation** attack. Add a call right after all your `session_start();`
+> `session_regenerate_id();`
 
---
+---
+
 # Homework
 1. Write a register page that store the data inside a file called users.txt
-2. Remove the hardcoded credentials 
-2. Check in your users.txt file in your login page to log users
+2. Remove the hardcoded credentials you previously set
+2. Check the data in your `users.txt` file in your login page to log users
 
-
-
-
+> Help:
+Look at all the PHP [filesystem functions](http://php.net/manual/en/book.filesystem.php) <!-- .element: target="_blank" -->
