@@ -1,19 +1,8 @@
-<?php session_start(); ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
-</head>
-
-<body>
+<?php session_start();
 
 
     
-    
-    <?php if($_POST["username"] && $_POST["password"]):
+    if($_POST["username"] && $_POST["password"]):
     
         $file = 'users.txt';
         // Une nouvelle personne à ajouter
@@ -25,11 +14,24 @@
         // en même temps
         file_put_contents($file, $_POST["username"] . "/", FILE_APPEND | LOCK_EX);
         file_put_contents($file, $_POST["password"] . PHP_EOL, FILE_APPEND | LOCK_EX);
-       
+
+        $_SESSION["logged"] = true;
+        $_SESSION["username"] = $_POST["username"];
+
         header('Location: index.php');
-    ?>
+        echo 'test';
         
-    <?php else : ?>
+    else : ?>
+       
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <title>Registration</title>
+        </head>
+
+        <body>
         <h1>Registration</h1>
         <form action="" method="post">
 
@@ -43,10 +45,8 @@
         </form>
         <br>
         <a href="index.php">Connexion</a>
+        
     <?php endif; ?>
-    
-    
-<!--    <?php var_dump($_SESSION); ?>-->
 
 </body>
 
