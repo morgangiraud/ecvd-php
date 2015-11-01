@@ -24,24 +24,13 @@
     <?php 
 
         $file = 'users.txt';
-        function return_bytes($val) {
-            $val = trim($val);
-            $last = strtolower($val[strlen($val)-1]);
-            switch($last) {
-                // The 'G' modifier is available since PHP 5.1.0
-                case 'g':
-                    $val *= 1024;
-                case 'm':
-                    $val *= 1024;
-                case 'k':
-                    $val *= 1024;
-            }
 
-            return $val;
-        }
-        return_bytes(ini_get('post_max_size'));
         if(isset($_POST['name']) && isset($_POST['pwd'])) {
-            $data = $_POST['name'] . './/.' . $_POST['pwd'] . "\n";
+            $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+            $pwd = filter_var($_POST['pwd'], FILTER_SANITIZE_STRING);
+            
+            $data = $name . './/.' . hash('haval256,5', trim($pwd)) . "\n";
+            
             $ret = file_put_contents($file, $data, FILE_APPEND | LOCK_EX);
             if($ret === false) {
                 die('There was an error writing this file');
