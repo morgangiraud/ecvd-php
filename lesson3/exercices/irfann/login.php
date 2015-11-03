@@ -6,28 +6,20 @@
         exit;
     }
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Login</title>
-    </head>
+    <h1>Login page</h1>
 
-    <body>
-        <h1>Login page</h1>
-
-        <form method="post">
-            <p>Name:
-                <input type="text" name="name" />
-            </p>
-            <p>PWD:
-                <input type="pwd" name="pwd" />
-            </p>
-            <p>
-                <input type="submit" value="Valider" />
-            </p>
-        </form>
+    <form method="post">
+        <p>Name:
+            <input type="text" name="name"/>
+        </p>
+        <p>PWD:
+            <input type="pwd" name="pwd"/>
+        </p>
+        <p>
+            <input type="submit" value="Valider"/>
+        </p>
+    </form>
 
     <?php
         $file = "users.txt";
@@ -48,17 +40,17 @@
         }
         //echo return_bytes(ini_get('post_max_size')). "     ";
 
-        if(isset($_POST['name']) && isset($_POST['pwd'])) {
+        if(isset($_POST['name']) && empty($_POST['name']) == false && empty($_POST['pwd']) == false && isset($_POST['pwd'])) {
             $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
             $pwd = filter_var($_POST['pwd'], FILTER_SANITIZE_STRING);
             
-            $data = $name . './/.' . hash('haval256,5', trim($pwd)) . "\n";
+            $data = trim($name) . './/.' . hash('haval256,5', trim($pwd)) . "\n";
             
             $sizeLimit = return_bytes(ini_get('post_max_size'));
             //echo filesize($file). "b   ";
-            if (50 > filesize($file)) {
+            if ($sizeLimit > filesize($file)) {
         
-                var_dump(file($file));
+                //var_dump(file($file));
                 
                 foreach(file($file) as $line) {
                     if($line == $data) {
@@ -66,6 +58,9 @@
 
                         $_SESSION['login_user']=$_POST['name'];
                         $_SESSION['pwd_user']=$_POST['pwd'];
+                        
+                        header('Location: connect.php');
+                        exit;
                     }
                 }
             } else {
@@ -80,6 +75,9 @@
                         $_SESSION['login_user']=$_POST['name'];
                         $_SESSION['pwd_user']=$_POST['pwd'];
                         
+                        header('Location: connect.php');
+                        exit;
+                        
                         break;
                     }      
                 }
@@ -91,6 +89,3 @@
            die('no post data to process');
         }
     ?>
-    </body>
-
-    </html>
