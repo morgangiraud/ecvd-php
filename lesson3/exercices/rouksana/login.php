@@ -12,7 +12,7 @@
 	<title>PHP</title>
 </head>
 <body>
-	<h1>Hello World</h1>
+	<h1>Login</h1>
 
 	<form method="post" action="">
 		<label>Nom</label>
@@ -26,10 +26,8 @@
 
 <br><br>
 <?php
-	echo('Nom : '.$_POST['name']);
-	echo('<br>');
-	echo('Mot de passe : '.$_POST['password']);
-	echo('<br>');
+	echo('Nom : '.$_POST['name'].'<br>');
+	echo('Mot de passe : '.$_POST['password'].'<br>');
 
 	function return_bytes($val) {
 	    $last = strtolower($val[strlen($val)-1]);
@@ -56,47 +54,36 @@
 
 		}else{
 
+			$name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+
+            $user = trim($name) . ',' . hash('haval256,5', trim($password)) . "\n";
+
 			if($memory/2 > $size){
-				$datas = file_get_contents($file);
-				$user = explode(';', $datas);
 
-				$key = 0;
-				while (count($user) > $key) {
-					$data = explode( ',', $user[$key]);
-
-					if($_POST['name'] === $data[0] && $_POST['password'] === $data[1]){
-						$_SESSION['name'] = $data[0];
-						echo ('Connecte ! ');
-						echo('<br>');
+				foreach(file($file) as $data) {
+                    if($data == $user) {
+                        
+                        $_SESSION['name'] = $_POST['name'];
+                        
+                   		echo ('Connecte ! <br>');
 						echo ('<a href="logout.php">Logout</a>');
 					}
-					else{
-						echo('Erreur');
-						echo('<br>');
-					}
-					$key++;
-				}
-
-			}else{
+                }
+            } else {
 				$handle = fopen($file, 'r');
 				$datas = fread($handle, $size);
 				$user = explode(';', $datas);
 
-				while(!feof($handle)) {
+				while(feof($handle) != false) {
 					$data = explode( ',', $user[$key]);
-				}
 
-				if($_POST['name'] === $data[0] && $_POST['password'] === $data[1]){
-					$_SESSION['name'] = $data[0];
-					echo ('Connecte ! ');
-					echo('<br>');
+					$_SESSION['name'] = $_POST['name'];
+					echo ('Connecte ! <br>');
 					echo ('<a href="logout.php">Logout</a>');
-				}
-				else{
-					echo('Erreur');
-					echo('<br>');
-				}
+				
 				fclose($handle);
+				}
 			}
 		}
 
