@@ -1,4 +1,5 @@
 # PHP / MySQL
+## Super globals, Session and Cookies
 *ECV Digital - 22/10/2015*
 
 **Pre-requisites: lesson 1**

@@ -1,4 +1,5 @@
 # PHP / MySQL
+## Introduction to PHP and GIT
 *ECV Digital - 15/10/2015*
 
 **Pre-requisites: you must read the Readme placed at the root folder to setup your computer**

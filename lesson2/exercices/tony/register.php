@@ -13,12 +13,13 @@
         // LOCK_EX pour empêcher quiconque d'autre d'écrire dans le fichier
         // en même temps
         file_put_contents($file, $_POST["username"] . "/", FILE_APPEND | LOCK_EX);
-        file_put_contents($file, $_POST["password"] . PHP_EOL, FILE_APPEND | LOCK_EX);
+        file_put_contents($file, $_POST["password"] . PHP_EOL, FILE_APPEND | LOCK_EX); // Hasher password
 
         $_SESSION["logged"] = true;
         $_SESSION["username"] = $_POST["username"];
 
         header('Location: index.php');
+        exit;
         echo 'test';
         
     else : ?>
