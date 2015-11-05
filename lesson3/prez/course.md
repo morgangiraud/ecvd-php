@@ -1,4 +1,5 @@
 # PHP / MySQL
+## Filesystem, hashing and headers
 *ECV Digital - 29/10/2015*
 
 **Pre-requisites: lesson 2**
