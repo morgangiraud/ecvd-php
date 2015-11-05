@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Ecvd-php by morgangiraud</title>
+    <title>PHP/MySQL courses</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
+    <link rel="stylesheet" href="stylesheets/tooltip.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,23 +16,34 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>ECVD-php</h1>
+        <h1>ECV Digital - 2015</h1>
         <p>PHP/MySQL lessons for the ECV Digital school</p>
         <ul>
           <a href="https://github.com/morgangiraud/ecvd-php">View On <strong>GitHub</strong></a>
         </ul>
         <ul>
-          <li><a href="lesson1/prez">Check <strong>Lesson 1</strong></a></li>
-          <li><a href="lesson2/prez">Check <strong>lesson 2</strong></a></li>
-          <!-- <li><a href="lesson3/prez">Check <strong>lesson 3</strong></a></li> -->
+          <li><a href="lesson1/prez" data-toggle="tooltip" data-placement="top" title="Introduction to PHP and GIT">Check <strong>Lesson 1</strong></a></li>
+          <li><a href="lesson2/prez" data-toggle="tooltip" data-placement="top" title="Super globals, Session and Cookies">Check <strong>lesson 2</strong></a></li>
+          <li><a href="lesson3/prez" data-toggle="tooltip" data-placement="top" title="Filesystem, hashing and headers">Check <strong>lesson 3</strong></a></li>
         </ul>
-        <!-- <ul>
-          <li><a href="lesson4/prez">Check <strong>lesson 4</strong></a></li>
-        </ul> -->
+        <ul>
+          <li><a href="lesson4/prez" data-toggle="tooltip" data-placement="top" title="Diving into Mysql">Check <strong>lesson 4</strong></a></li>
+        </ul>
       </header>
       <section>
+        <section>
         <h3>
 <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to my PHP/MySQL Courses.</h3>
+This a very modest webpage easing the access to my courses. All the content produced for this course is hosted on Github.<br>
+Please, follow the links on this page to check them!
+<br><br>
+<b>Before you check the course</b>, understand that is <b>not</b> a course about <b>the basic of programmation:</b> All the notions like <code>Loop, variables, functions etc.</code> will not be covered from the beginner point of view.
+<br>
+But if you want to dive a little more into PHP and MySQL, You might find those courses relevant for you.
+<br><br>
+This course can also be used as materials for teachers needing sources or exercices, feel free to <b>fork</b> it!
+<br><br>
+Feel free to contribute if you find typos anywhere on this repositiry or even better, if you have links that are relevant in the context of this course.
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/morgangiraud">morgangiraud</a></p>
@@ -40,5 +52,12 @@
     </div>
     <script src="javascripts/scale.fix.js"></script>
     
+    <script src="javascripts/jquery-2.1.4.min.js"></script>
+    <script src="javascripts/tooltip.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
   </body>
 </html>
