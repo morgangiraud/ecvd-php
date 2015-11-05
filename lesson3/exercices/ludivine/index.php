@@ -51,7 +51,7 @@
                     $_SESSION['login_user']=$_POST['nom'];
                     $_SESSION['pwd_user']=$_POST['mdp'];
 
-                    header('Location: connect.php');
+                    //header('Location: connect.php');
                      exit;
                 }
             }
@@ -61,12 +61,6 @@
         }
 ?>
 
-<?php
-
-echo md5($_POST["mdp"]);
-
-
-?>
 
 </body>
 </html>

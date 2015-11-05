@@ -1,4 +1,5 @@
 # PHP / MySQL
+## Filesystem, hashing and headers
 *ECV Digital - 29/10/2015*
 
 **Pre-requisites: lesson 2**
@@ -65,7 +66,7 @@ Everytime you ask a user for any kind of input, those informations must be:
 > Never trust any client-side information
 
 Basic string cleaning 
-> `trim, `
+> `trim, htmlspecialchars ...`
 
 --
 # Hashing
@@ -88,22 +89,21 @@ Secure your app:
 
 ---
 #Headers
-Most common use:
 > 
-- redirect
-- content-type
-- caching directive
-- compression
-- lang
+- Redirection
+- Content-type
+- Caching directive
+- Compression indication
+- Lang
 
 Headers are in all HTTP call: request and response
 
-Look ath the network section in your browser console
+Look ath the network section in your browser console and check both header from the request and the response
 --
 #Headers: PHP
 [`header('header-key:header-value');`](http://php.net/manual/fr/function.header.php) <!-- .element: target="_blank" -->
 
-Comme pour les sessions, les headers doivent être en première ligne
+Comme pour les sessions, les `headers` doivent être en première ligne
 ```
 <html> <!-- Du point de vue de PHP, ceci consiste déjà en une sortie  -->
 <?php
@@ -114,8 +114,13 @@ exit;
 ?>
 ```
 More [info](http://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php)
+
 Special case of [redirection](http://stackoverflow.com/questions/23993207/php-which-is-the-best-practise-of-header-location)
 
 --- 
 # Year Project
-Good planet
+Company:
+>[Good planet](http://www.goodplanet.org/) <!-- .element: target="_blank" -->
+
+Project:
+> Build a website usable by children. There must be student and teachers account, student can create small page from drag and drop UI and templates. Teachers can validate them and publish them.
