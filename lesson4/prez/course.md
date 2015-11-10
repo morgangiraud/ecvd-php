@@ -12,8 +12,6 @@ Set up your environment:
 - Pull your own repo and the teacher's repo. 
 - Move into the lesson4 exercice folder 
 - Create a folder with your name, move into it
-- Add an `entry.js`, `index.html` and `webpack.config.js` file
-- Add a `app.js` file
 
 ---
 # MySQL
@@ -44,8 +42,10 @@ mysql -u username -p
 ```
 
 1. [Add a user](http://dev.mysql.com/doc/refman/5.7/en/adding-users.html) to avoid using the root user <!-- .element: target="_blank" -->
-2. Create a database named "ecvdphp" thanks to this [MySQL tutorial](http://dev.mysql.com/doc/refman/5.7/en/database-use.html) to: <!-- .element: target="_blank" -->
-3. Create a table named "users" with fields
+2. Check your users: `SELECT User from mysql.user;`
+3. Show current database ` show databases;`
+4. Create a database named "ecvdphp" thanks to this [MySQL tutorial](http://dev.mysql.com/doc/refman/5.7/en/database-use.html) to: <!-- .element: target="_blank" -->
+5. Create a table named "users" with the following fields
   - `id, username, email, password`
 
 [More on table handling](http://sql.sh/cours/alter-table) <!-- .element: target="_blank" -->
@@ -64,8 +64,7 @@ A good GUI: [sequel pro](http://www.sequelpro.com/) <!-- .element: target="_blan
 - You connect to the database server
 - You select the good database
 - You make queries
-- No Exception
-- You disconnect from the databse
+- You disconnect from the database
 
 > Everytime you have to check is an error happened
 
@@ -110,9 +109,7 @@ try{
   echo $e->getMessage();
 }
 
-$result = $conn->query('SELECT * WHERE 1=1');
-
-mysql_close($link);
+$result = $conn->query('SELECT ...');
 ?>
 ```
 
@@ -130,7 +127,7 @@ Why you [should (must) use it](http://code.tutsplus.com/tutorials/why-you-should
 > Rework your login/signin system using the PDO object!
 
 - Change your file credentials with a MySQL repo
-- Configure your databse to have a users table
+- Configure your database to have a users table
 - Use a INSERT query to insert a new line in your table users
 
 > [INSERT syntax](http://dev.mysql.com/doc/refman/5.7/en/insert.html) <!-- .element: target="_blank" -->
