@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>PHP</title>
+	<meta charset="utf-8" />
 </head>
 <body>
 	<h1>Register</h1>
@@ -19,25 +20,15 @@
 		<input type='submit' value='Connexion' />
 	</form>
 
+	<br>
+	
+	<a href="login.php">Login</a>
+
+	<br>
+
 <?php
 
-	try{
-	  $conn = new PDO("mysql:host=127.0.0.1;dbname=ecvdphp", 'rouksana', 'azerty');
-	  $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // Activate exception
-	} catch (\PDOException $e){
-	  echo $e->getMessage();
-	}
-
-	// $result = $conn->query('SELECT * FROM users');
-	
-	// foreach  ($result as $row) {
- //        echo($row['id']."\n");
- //        echo($row['username']."\n");
- //        echo($row['email']."\n");
- //        echo($row['password']."\n");
- //    }
-
-	$file = 'users.txt';
+	require_once('connect.php');
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 
@@ -48,13 +39,16 @@
 		}else{
 			$name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
             $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
 
-            $insert = $conn->query('INSERT INTO users (id, username, email, password) VALUES (null, "'.$_POST['name'].'", "'.$_POST['email'].'", "'.$_POST['password'].'")');
+            $_SESSION['username'] = $_POST['name'];
+
+            $insert = $conn->query('INSERT INTO users (id, username, email, password) VALUES (null, "'.$name.'", "'.$email.'", "'.$password.'")');
 		
             if(!$insert){
             	echo('ERROR');
             } else{
-            	echo('Incrit ! <br> <a href="login.php">Login</a>');
+            	echo('Incrit !');
             }
 		}	
 

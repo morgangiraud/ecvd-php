@@ -10,6 +10,7 @@
 <html>
 <head>
 	<title>PHP</title>
+	<meta charset="utf-8" />
 </head>
 <body>
 	<h1>Login</h1>
@@ -29,22 +30,9 @@
 	echo('Nom : '.$_POST['name'].'<br>');
 	echo('Mot de passe : '.$_POST['password'].'<br>');
 
-	function return_bytes($val) {
-	    $last = strtolower($val[strlen($val)-1]);
-	    switch($last) {
-	        case 'g':
-	            $val *= 1024;
-	        case 'm':
-	            $val *= 1024;
-	        case 'k':
-	            $val *= 1024;
-	    }
-	    return $val;
-	}
-
-	$file = 'users.txt';
-	$memory = return_bytes(ini_get('memory_limit'));
-	$size = filesize($file);	
+	require_once('connect.php');
+	$get = $conn->query('SELECT * FROM users');
+	$users = $get->fetchAll();
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 
@@ -57,34 +45,23 @@
 			$name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
             $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
-            $user = trim($name) . ',' . hash('haval256,5', trim($password)) . "\n";
-
-			if($memory/2 > $size){
-
-				foreach(file($file) as $data) {
-                    if($data == $user) {
-                        
-                        $_SESSION['name'] = $_POST['name'];
-                        
-                   		echo ('Connecte ! <br>');
-						echo ('<a href="logout.php">Logout</a>');
-					}
-                }
-            } else {
-				$handle = fopen($file, 'r');
-				$datas = fread($handle, $size);
-				$user = explode(';', $datas);
-
-				while(feof($handle) != false) {
-					$data = explode( ',', $user[$key]);
-
-					$_SESSION['name'] = $_POST['name'];
-					echo ('Connecte ! <br>');
-					echo ('<a href="logout.php">Logout</a>');
+			foreach ($users as $key => $user) {
 				
-				fclose($handle);
+				$getname = $user['username'];
+				$getpwd = $user['password'];
+
+				if($getname == $name && $getpwd == $password){
+					$_SESSION['name'] = $_POST['name'];
+                        
+               		echo ('Connecte ! <br>');
+					echo ('<a href="logout.php">Logout</a><br>');
+					echo ('<a href="profile.php">Profile</a>');
 				}
-			}
+				else{
+					echo ('Error');
+				}
+
+            }
 		}
 
 	}else{
