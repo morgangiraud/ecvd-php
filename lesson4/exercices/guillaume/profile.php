@@ -29,8 +29,6 @@ if(!isset($_SESSION['username'])) {
 				$delete->execute(array($_SESSION['username']));
 				header("Location: logout.php");
 				
-			} elseif(isset($_POST['update'])) {
-				
 			}
 
 			$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = ?");
@@ -48,22 +46,6 @@ if(!isset($_SESSION['username'])) {
 		<form action="profile.php" method="post">
 			<input type="hidden" name="delete" />
 			<button>Supprimer mon compte</button>
-		</form>
-
-		<form action="profile.php" method="post">
-			<input type="hidden" name="update" />
-
-			<div>
-				<label for="password">Password</label>
-				<input type="password">
-			</div>
-
-			<div>
-				<label for="email">Email</label>
-				<input type="email" />
-			</div>
-
-			<button>Modifier Profil</button>
 		</form>
 		
 	</body>
