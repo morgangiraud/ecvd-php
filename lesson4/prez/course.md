@@ -162,23 +162,3 @@ Add the feature: **Profile page**
 - If everything is ok, delete the account using a DELETE query
 
 > [DELETE syntax](http://dev.mysql.com/doc/refman/5.7/en/delete.html) <!-- .element: target="_blank" -->
-
----
-# Security
-[SQL Injection](https://fr.wikipedia.org/wiki/Injection_SQL) <!-- .element: target="_blank" -->
-
-Prepare your statement with the [prepare function](http://php.net/manual/fr/pdo.prepare.php) <!-- .element: target="_blank" -->
-
-```php
-<?php
-// Prepare the statement
-$sth = $dbh->prepare('SELECT nom, couleur, calories
-    FROM fruit
-    WHERE calories < ? AND couleur = ?');
-// Execute the query
-$sth->execute(array(150, 'rouge'));
-// Fetch the result
-$red = $sth->fetchAll();
-
-```
-
