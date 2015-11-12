@@ -3,7 +3,7 @@
     session_start();
     session_regenerate_id();
 
-    $username = "ludivine";
+    $username = "root";
     $password = "";
     $host = "127.0.0.1";
     $dbname = "ecvdphp";
@@ -16,9 +16,6 @@
     catch (\PDOException $e){
     echo $e->getMessage();
     }
-
-   $result = $conn->query('INSERT INTO users (username, password) VALUES ("lulu", "1234")');
-    var_dump($result);
 
 
 
@@ -56,9 +53,9 @@
 
 <?php
 
-    echo trim($_POST["nom"]);
+/*    echo trim($_POST["nom"]);
     echo trim($_POST["mdp"]);
-    echo trim($_POST["email"]);
+    echo trim($_POST["email"]);*/
 
         $file = file("users.txt");
             if(isset($_POST['nom']) && empty($_POST['nom']) == false && isset($_POST['mdp']) && empty($_POST['mdp']) == false && isset($_POST['email']) && empty($_POST['email']) == false) {
@@ -80,7 +77,7 @@
         try{
         $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); 
-        $result = $conn->query('INSERT INTO users (nom, mdp, email) VALUES ("lulu", "1234", "test@test.fr")');
+        $result = $conn->query('INSERT INTO users (username, password, email) VALUES ("'.($_POST["nom"]).'","'. md5($_POST["mdp"]) .'","'. ($_POST["email"]).'")');
         }   
         catch (\PDOException $e){
         echo $e->getMessage();
