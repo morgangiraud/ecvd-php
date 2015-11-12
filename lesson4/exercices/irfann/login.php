@@ -47,11 +47,17 @@
 
             $pwd = hash('haval256,5', trim($pwd));
 
-            $result = $conn->query('select users where username="'.$name.' and password="'.$pwd.'"');
-
-            if ($result) {
+            /*$result = $conn->query('select * from users where username="'.$name.' and password="'.$pwd.'"');*/
+            try {
+                $result = $conn->query('select * from users where username like "'.$name.'" and password like "'.$pwd.'"');
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            if ($result->fetch()) {
+                $_SESSION['login_user']=$_POST['name'];
+                $_SESSION['pwd_user']=$_POST['pwd'];
                 header('Location: connect.php');
-            exit;
+                exit;
             }
             
             
