@@ -1,4 +1,4 @@
-<?php session_start();
+<?php require_once('session.php');
 
 if(isset($_SESSION['username'])) {
 	header("Location: first.php");
@@ -18,8 +18,6 @@ if(isset($_SESSION['username'])) {
 	<body>
 
 		<?php
-
-			
 
 			function insert_user($username, $password) {
 				require_once('connect.php');
@@ -64,7 +62,6 @@ if(isset($_SESSION['username'])) {
 				<a href="first.php">Login</a>
 
 			<?php }
-
 		?>
 		
 	</body>

@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php require_once('session.php'); ?>
 
 <!DOCTYPE HTML>
 
@@ -18,8 +18,9 @@
 			function get_user($username) {
 				require_once('connect.php');
 				// On récupère les utilisateurs enregistrés dans la base de données
-				$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = ?");
-				$response->execute(array($username));
+				$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = :koko");
+				$response->bindParam(':koko', $username, PDO::PARAM_STR);
+				$response->execute();
 				return $response->fetchAll();
 			}
 
@@ -50,7 +51,6 @@
 						} else {
 							$result = 'Votre mot de passe ne correspond pas';
 						}
-
 
 					} else {
 						$result = 'Votre username ne correspond pas.';
