@@ -18,6 +18,8 @@ if(isset($_SESSION['username'])) {
 	<body>
 
 		<?php
+		
+			require_once('header.php');
 
 			function insert_user($username, $password) {
 				require_once('connect.php');
@@ -28,9 +30,8 @@ if(isset($_SESSION['username'])) {
 					$insert = $bdd->prepare("INSERT INTO `users` (`username`, `password`, `email`, `description`) VALUES (?, ?, '', 'Ceci est une description tirée de la BDD du user');");
 					$insert->execute(array($username, $password));
 				} catch (Exception $e) {
-					var_dump($e);
-					die;
-				}	
+					die("Some error occured while the register process : ".$e)
+				}
 			}
 
 			if(isset($_POST['name'])) {
@@ -61,7 +62,7 @@ if(isset($_SESSION['username'])) {
 
 				<a href="first.php">Login</a>
 
-			<?php }
+			<?php } require_once('footer.php');
 		?>
 		
 	</body>

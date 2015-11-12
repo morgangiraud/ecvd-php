@@ -1,0 +1,1 @@
+<footer style="height: 50px;background-color:#BADA55;">Hello I'm a Footer</footer>

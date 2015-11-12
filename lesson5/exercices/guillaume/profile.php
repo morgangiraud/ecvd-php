@@ -19,31 +19,46 @@ if(!isset($_SESSION['username'])) {
 	<body>
 
 		<?php
+			require_once('header.php');
+
 			// On récupère la connexion à la BDD
 			require_once('connect.php');
 
 			// Si l'utilisateur a demandé à supprimer son compte
 			if(isset($_POST['delete'])) {
-				$delete = $bdd->prepare("DELETE FROM `users` WHERE `username` = ?");
-				$delete->execute(array($_SESSION['username']));
-				header("Location: logout.php");
+				
+				try {
+					$delete = $bdd->prepare("DELETE FROM `users` WHERE `username` = ?");
+					$delete->execute(array($_SESSION['username']));
+					header("Location: logout.php");
+				} catch (Exception $e) {
+					die("Couldn't delete your profile : ".$e)
+				}
 				
 			} else if(isset($_POST['update'])) {
 
 				if(!empty($_POST['email'])) {
 
-					$update = $bdd->prepare("UPDATE `users` SET `email`= ? WHERE `username` = ?");
-					$update->execute(array($_POST['email'], $_SESSION['username']));
-					echo "Votre email a bien été modifié !";
+					try {
+						$update = $bdd->prepare("UPDATE `users` SET `email`= ? WHERE `username` = ?");
+						$update->execute(array($_POST['email'], $_SESSION['username']));
+						echo "Votre email a bien été modifié !";
+					} catch (Exception $e) {
+						die("Some error occured while the updating process : ".$e)
+					}
 
 				} else {
 					echo 'Rentrez un email.';
 				}
 			}
 
-			$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = ?");
-			$response->execute(array($_SESSION['username']));
-			$datas = $response->fetch();
+			try {
+				$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = ?");
+				$response->execute(array($_SESSION['username']));
+				$datas = $response->fetch();
+			} catch (Exception $e) {
+				die("Some error occured while looking for your profile : ".$e)
+			}
 
 		?>
 
@@ -70,6 +85,8 @@ if(!isset($_SESSION['username'])) {
 
 			<button>Mettre à jour</button>
 		</form>
+
+		<?php require_once('footer.php'); ?>
 		
 	</body>
 

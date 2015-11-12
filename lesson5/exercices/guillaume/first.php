@@ -13,8 +13,9 @@
 
 		<?php
 
-			// On récupère la connexion à la BDD
+			require_once('header.php');
 
+			// On récupère la connexion à la BDD
 			function get_user($username) {
 				require_once('connect.php');
 				// On récupère les utilisateurs enregistrés dans la base de données
@@ -85,6 +86,8 @@
 				<a href="register.php">Register</a>
 
 			<?php }
+
+			require_once('footer.php');
 
 		?>
 		
