@@ -117,6 +117,17 @@ More [info](http://stackoverflow.com/questions/8028957/how-to-fix-headers-alread
 
 Special case of [redirection](http://stackoverflow.com/questions/23993207/php-which-is-the-best-practise-of-header-location)
 
+--
+# Status Code
+Here is the [full list of HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) <!-- .element: target="_blank" -->
+
+The more important:
+- 1xx Informational
+- 2xx Success
+- 3xx Redirection
+- 4xx Client Error
+- 5xx Serve Error
+
 --- 
 # Year Project
 Company:
