@@ -1,19 +1,7 @@
 <?php
-session_start();
-session_regenerate_id();
+require_once 'session.php';
 
-try{
-  $host = "127.0.0.1"; // Use an IP Adresse
-  $dbName = "ecvdphp";
-  $dbUsername = "ecvduser";
-  $dbPassword = "ecvd";
-
-  $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
-  $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // Activate exception
-} catch (\PDOException $e){
-  echo $e->getMessage();
-  exit;
-}
+require_once 'connect.php';
 
 $message = "";
 if(isset($_SESSION['id'])){
@@ -28,8 +16,8 @@ if(isset($_SESSION['id'])){
     $password = $_POST['password'];
 
     $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-    $stmt->bindParam(1, $pseudo);
-    $stmt->bindParam(2, $email);
+    $stmt->bindParam(1, trim($pseudo));
+    $stmt->bindParam(2, trim($email));
     $stmt->bindParam(3, password_hash($password, PASSWORD_BCRYPT));
     if($stmt->execute()){
       header('Location:login.php', true, 301);
@@ -39,12 +27,8 @@ if(isset($_SESSION['id'])){
     }          
   }
 }
+include 'header.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
 <body>
   <div>
     <form method="post" action="">
