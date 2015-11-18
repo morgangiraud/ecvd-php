@@ -1,12 +1,11 @@
 <?php
-	session_start();
+	require_once ('session.php');
+	require_once('connect.php');
 
 	if(!isset($_SESSION['name'])){
 		header("Location: index.php");
 		exit();
 	}
-
-	require_once('connect.php');
 
 	$name = filter_var($_SESSION['name'], FILTER_SANITIZE_STRING);
 
@@ -38,16 +37,8 @@
 
 		echo ('Profil modifié');
 	}
-
+	include('header.php');
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>PHP</title>
-	<meta charset="utf-8" />
-</head>
-<body>
 	<h1>Profile</h1>
 	<h2>Hello <?php echo $name; ?> !</h2>
 	<a href="logout.php">Logout</a>
@@ -70,5 +61,4 @@
 		<input type='submit' value='Edit' />
 	</form>
 	
-	</body>
-</html>
+<?php include('footer.php');?>

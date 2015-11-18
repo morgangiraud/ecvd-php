@@ -1,18 +1,10 @@
 <?php
-	session_start();
-	session_regenerate_id();
-
+	require_once ('session.php');
 	if(isset($_SESSION['name'])){
 		echo ('Deja connecte <br> <a href="logout.php">Logout</a>');
 	}
+	include('header.php');
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>PHP</title>
-	<meta charset="utf-8" />
-</head>
-<body>
 	<h1>Login</h1>
 
 	<form method="post" action="">
@@ -42,18 +34,12 @@
 	$users = $stmt->fetchAll();
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
-
 		if(empty($_POST['name']) || empty($_POST['password']) ){
-
 			echo('Champ non rempli');
-
 		}else{
-
 			foreach ($users as $key => $user) {
-				
 				$getname = $user['username'];
 				$getpwd = $user['password'];
-
 				if($getname == $name && $getpwd == $password){
 					$_SESSION['name'] = $_POST['name'];
                         
@@ -64,17 +50,10 @@
 				else{
 					echo ('Error');
 				}
-
             }
 		}
-
 	}else{
-
 		echo ('Non connecte.');
-
 	}
-
 ?>
-
-</body>
-</html>
+<?php include('footer.php');?>
