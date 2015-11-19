@@ -1,3 +1,6 @@
+<?php
+	require_once('bdd.php');
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,18 +23,6 @@
 				header('location: http://localhost:8000/index.php');
 			}
 
-			$host = '127.0.0.1';
-			$dbname = 'ecvdphp';
-			$user = 'nicolas';
-			$pass = '';
-
-			try{
-			  $bdd = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-			  $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // Activate exception
-			} catch (\PDOException $e){
-			  echo $e->getMessage();
-			}
-
 			//$bdd->exec('DELETE FROM users');
 
 			$req = $bdd->prepare('SELECT * FROM users WHERE username = ? AND password = ?');
@@ -39,9 +30,10 @@
 			$data = $req->fetch();
 
 			if($pseudo == $data['username'] && $password == $data['password']){
+				require_once('session.php');
 				$_SESSION['pseudo'] = $pseudo;
 				$_SESSION['email'] = $data['email'];
-				header('location: session.php');
+				header('location: profile.php');
 			} else{
 				header('location: index.php');
 			}

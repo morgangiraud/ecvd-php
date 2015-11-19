@@ -1,17 +1,7 @@
 <?php
+require_once('bdd.php');
+
 if(isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password'])){
-
-	$host = '127.0.0.1';
-	$dbname = 'ecvdphp';
-	$user = 'nicolas';
-	$pass = '';
-
-	try{
-	  $bdd = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-	  $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // Activate exception
-	} catch (\PDOException $e){
-	  echo $e->getMessage();
-	}
 
 	$pseudo = $_POST['pseudo'];
 	$email = $_POST['email'];

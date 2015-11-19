@@ -23,20 +23,10 @@ Tool that will be used in this course:
 --
 # GIT
 - GIT Installation: See the README
+- Introduction [tutorial](https://try.github.io/) <!-- .element: target="_blank" -->
 - Training on http://pcottle.github.io/learnGitBranching <!-- .element: target="_blank" -->
     - Exercice 1-4, normal mode 
     - Exercice 1-6, remote mode
-- (you can also check this free [tutorial](https://try.github.io/)) <!-- .element: target="_blank" -->
-
-Note:
-- php ecvd repo cloned locally
-- All the basic of git has been understood:
-  - `git pull`
-  - `git push`
-  - `git branch`
-  - `git commit`
-  - `git status`
-  - `git merge`
 
 ---
 # PHP
