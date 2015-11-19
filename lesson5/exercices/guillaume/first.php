@@ -14,16 +14,7 @@
 		<?php
 
 			require_once('header.php');
-
-			// On récupère la connexion à la BDD
-			function get_user($username) {
-				require_once('connect.php');
-				// On récupère les utilisateurs enregistrés dans la base de données
-				$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = :koko");
-				$response->bindParam(':koko', $username, PDO::PARAM_STR);
-				$response->execute();
-				return $response->fetchAll();
-			}
+			require_once('functions.php');
 
 			// Si l'utilisateur est déjà enregistré en session, on lui propose de se déconnecter
 			if(isset($_SESSION['username'])) {

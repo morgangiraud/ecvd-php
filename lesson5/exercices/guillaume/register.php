@@ -18,21 +18,8 @@ if(isset($_SESSION['username'])) {
 	<body>
 
 		<?php
-		
 			require_once('header.php');
-
-			function insert_user($username, $password) {
-				require_once('connect.php');
-
-				$password = password_hash($password, PASSWORD_BCRYPT);
-
-				try {
-					$insert = $bdd->prepare("INSERT INTO `users` (`username`, `password`, `email`, `description`) VALUES (?, ?, '', 'Ceci est une description tirée de la BDD du user');");
-					$insert->execute(array($username, $password));
-				} catch (Exception $e) {
-					die("Some error occured while the register process : ".$e);
-				}
-			}
+			require_once('functions.php');
 
 			if(isset($_POST['name'])) {
 
