@@ -23,20 +23,10 @@ Tool that will be used in this course:
 --
 # GIT
 - GIT Installation: See the README
+- Introduction [tutorial](https://try.github.io/) <!-- .element: target="_blank" -->
 - Training on http://pcottle.github.io/learnGitBranching <!-- .element: target="_blank" -->
     - Exercice 1-4, normal mode 
     - Exercice 1-6, remote mode
-- (you can also check this free [tutorial](https://try.github.io/)) <!-- .element: target="_blank" -->
-
-Note:
-- php ecvd repo cloned locally
-- All the basic of git has been understood:
-  - `git pull`
-  - `git push`
-  - `git branch`
-  - `git commit`
-  - `git status`
-  - `git merge`
 
 ---
 # PHP
@@ -44,9 +34,46 @@ Note:
 - [Wikipedia](https://en.wikipedia.org/wiki/PHP) <!-- .element: target="_blank" -->
 - Check the RESOURCES.md file for more resources
 
+--
+## Configuration
+PHP Works with a huge config file, usually call `php.ini`. This file can be different for the PHP CLI (Command Line Interface) and PHP used by the webserver.
+
+To locate the file for the CLI you can do:
+```bash
+# Locating the config file
+php --ini
+# You can also access all the current configuration
+php -i
+# And greping for a special information
+php -i | grep error
+```
+
+--
+## Configuration
+To locate the file for the webserver you can create a PHP file containing (`phpinfo.php`):
+```php
+<?php
+phpinfo();
+?>
+```
+And access it from the browser.
+
+--
+# Error config
+Before starting developping, let's check if we have the good PHP configuration to display errors:
+
+- Locate the php.ini used by the webserver
+- Edit it and check that:
+  - error_reporting = E_ALL
+  - display_errors = On
+  - display_startup_errors = On
+  - log_errors = On
+- Save the file, and restart you php process if any (You can check with this command: `ps -e | grep php`)
+
 ---
-# Zend certification
-Objectif: [Zend Certification](http://www.zend.com/en/services/certification/php-5-certification) <!-- .element: target="_blank" -->
+# Course objectif
+[Zend Certification](http://www.zend.com/en/services/certification/php-5-certification) <!-- .element: target="_blank" -->
+
 Overview of all the subject that will be studied in this course:
    - PHP Basics (Focus on Namespaces and extensions) <!-- .element: class="fragment" -->
    - Arrays (Focus on array functions) <!-- .element: class="fragment" -->
