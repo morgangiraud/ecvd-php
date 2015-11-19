@@ -12,16 +12,6 @@ require('session.php');
     $host = "127.0.0.1";
     $dbname = "ecvdphp";
 
-
-    try{
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); 
-    }   
-    catch (\PDOException $e){
-    echo $e->getMessage();
-    }
-
-
 /*    echo trim($_POST["nom"]);
     echo trim($_POST["mdp"]);
     echo trim($_POST["email"]);*/
@@ -42,20 +32,6 @@ require('session.php');
                      exit;
                 }
             }*/
-
-        try{
-        $result = $conn->prepare('INSERT INTO users (username, password, email) VALUES (:username, :password, :email)');
-        $result->bindParam(':username', $_POST['nom'], PDO::PARAM_STR);
-        $result->bindParam(':password', $_POST['mdp'], PDO::PARAM_STR);
-        $result->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
-        $result->execute();
-        var_dump($result);
-        }   
-        catch (\PDOException $e){
-        echo $e->getMessage();
-
-        }
-
     }
         else {
            die('no post data to process');

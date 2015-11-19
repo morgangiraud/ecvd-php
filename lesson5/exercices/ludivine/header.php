@@ -15,3 +15,10 @@
 
     <input type="submit" value="Envoyer" />
 </form>
+
+<?php
+
+require('session.php');
+require('functions.php');
+
+?>
