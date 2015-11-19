@@ -1,13 +1,14 @@
 <?php 
+    require("session.php");
     require("init.php");
-    session_start(); 
+    require("header.php");
 ?>
 
     <h1>CONNECT to <?php echo $_SESSION['login_user'] ?></h1>
     <p>and your pwd is........... <?php echo $_SESSION['pwd_user'] ?></p>
     
     <?php
-        require('header.php');
+        require('form.php');
     ?>
     <form method="POST">
         <button type="submit" name="deco">Deconnexion</button>

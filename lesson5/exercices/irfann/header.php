@@ -1,11 +1,6 @@
-   <form method="post">
-        <p>Name:
-            <input type="text" name="name"/>
-        </p>
-        <p>PWD:
-            <input type="pwd" name="pwd"/>
-        </p>
-        <p>
-            <input type="submit" name="ok" value="Valider"/>
-        </p>
-    </form>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PHP</title>
+</head>
+<body>

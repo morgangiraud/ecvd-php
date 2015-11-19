@@ -1,20 +1,14 @@
 <?php
     require("init.php");
+    require("header.php");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>PHP</title>
-</head>
 
 <body>
     <h1>Register page</h1>
 
     <?php 
-        require('header.php');
+        require('form.php');
         
         if(isset($_POST['name']) && empty($_POST['name']) == false && empty($_POST['pwd']) == false && isset($_POST['pwd'])) {
             $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);

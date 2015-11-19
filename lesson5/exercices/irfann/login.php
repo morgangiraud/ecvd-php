@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    session_regenerate_id();
+    require("session.php");
     require("init.php");
+    require("header.php");
+    
     if($_SESSION['login_user'] && $_SESSION['pwd_user']){
         header('Location: connect.php');
         exit;
@@ -11,7 +12,7 @@
     <h1>Login page</h1>
 
     <?php
-        require('header.php');
+        require('form.php');
 
         if(isset($_POST['name']) && empty($_POST['name']) == false && empty($_POST['pwd']) == false && isset($_POST['pwd'])) {
             $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
@@ -38,3 +39,6 @@
            die('no post data to process');
         }
     ?>
+<?php 
+    require("footer.php");
+?>
