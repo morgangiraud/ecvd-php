@@ -20,9 +20,10 @@ if(!isset($_SESSION['username'])) {
 
 		<?php
 			require_once('header.php');
-
-			// On récupère la connexion à la BDD
 			require_once('connect.php');
+
+			require_once('functions.php');
+			use Ecvdphp\User;
 
 			// Si l'utilisateur a demandé à supprimer son compte
 			if(isset($_POST['delete'])) {
@@ -50,10 +51,19 @@ if(!isset($_SESSION['username'])) {
 				} else {
 					echo 'Rentrez un email.';
 				}
+
+			} else if(isset($_POST['upload'])) {
+				$picture = User::checkFile();
+
+				if(!is_array($picture)) {
+					echo $picture;
+				} else {
+					echo User::moveFile($picture);
+				}
 			}
 
 			try {
-				$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = ?");
+				$response = $bdd->prepare("SELECT * FROM `users` LEFT JOIN `files` ON `users`.image_id = `files`.id WHERE `username` = ?");
 				$response->execute(array($_SESSION['username']));
 				$datas = $response->fetch();
 			} catch (Exception $e) {
@@ -65,6 +75,13 @@ if(!isset($_SESSION['username'])) {
 		<a href="first.php">Retour</a>
 
 		<h2>Bienvenue sur votre page de profil <?= $_SESSION['username'] ?>!</h2>
+
+		<?php 
+
+			if($datas['image_id'] !== null) { ?>
+				<img width="200" src="<?=$datas['path']?><?=$datas['filename']?>" alt="" />
+			<?php }
+		?>
 
 		<?= $datas['description'] ?>
 
@@ -84,6 +101,22 @@ if(!isset($_SESSION['username'])) {
 			</div>
 
 			<button>Mettre à jour</button>
+		</form>
+
+		<br><br>
+
+		<form action="profile.php" method="post" enctype="multipart/form-data">
+
+			<input type="hidden" name="upload" value="true" />
+
+			<div>
+				<label for="filedata"></label>
+				<input type="file" name="filedata" />
+			</div>
+
+			<div>
+				<button>Uploader une image</button>
+			</div>
 		</form>
 
 		<?php require_once('footer.php'); ?>
