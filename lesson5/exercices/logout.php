@@ -1,5 +1,7 @@
 <?php
-session_start();
+require_once 'session.php';
+require_once 'functions.php';
+
 session_destroy();
-header('Location: ' . $_SERVER['HTTP_REFERER'], true, 301);
-exit();
+
+redirect('login.php');
