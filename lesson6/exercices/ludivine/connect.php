@@ -5,12 +5,16 @@ require('session.php');
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CONNECT</title>
+    <title>User Profile</title>
 </head>
 <body>
+
+    <h3>CONNECT to <?php echo $_SESSION['login_user'] ?></h3>
+
+</body>
+</html>
 
 <form enctype="multipart/form-data" action="/" method="post">
     <div>
@@ -25,13 +29,13 @@ require('session.php');
         <div class="button">
         <button type="submit">Valider</button>
     </div>
+</form>
+
+
+
+<form enctype="multipart/form-data" action="upload.php" method="post">
     <div>
       <input name="filedata" type="file" />
       <input type="submit" value="Send file" />
     </div>
 </form>
-
-    <h1>CONNECT to <?php echo $_SESSION['login_user'] ?></h1>
-    <p>and your pwd is........... <?php echo $_SESSION['pwd_user'] ?></p>
-</body>
-</html>
