@@ -38,7 +38,7 @@ if(!isset($_SESSION['username'])) {
 				
 			} else if(isset($_POST['update'])) {
 
-				if(!empty($_POST['email'])) {
+				if(!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 
 					try {
 						$update = $bdd->prepare("UPDATE `users` SET `email`= ? WHERE `username` = ?");
@@ -49,7 +49,7 @@ if(!isset($_SESSION['username'])) {
 					}
 
 				} else {
-					echo 'Rentrez un email.';
+					echo 'Rentrez un email valide.';
 				}
 
 			} else if(isset($_POST['upload'])) {

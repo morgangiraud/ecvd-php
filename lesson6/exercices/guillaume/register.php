@@ -24,10 +24,14 @@ if(isset($_SESSION['username'])) {
 
 			if(isset($_POST['name'])) {
 
-				User::insertUser($_POST['name'], $_POST['password']);
-				$_SESSION['username'] = $_POST['name'];
+				if(ctype_alpha($_POST['name']) {
+					User::insertUser($_POST['name'], $_POST['password']);
+					$_SESSION['username'] = $_POST['name'];
 
-				require_once('return_home.php');
+					require_once('return_home.php');
+				} else {
+					echo 'Problem format username';
+				}				
 
 			} else { ?>
 
