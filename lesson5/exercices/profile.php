@@ -1,62 +1,41 @@
 <?php
-session_start();
-session_regenerate_id();
-
-try{
-  $host = "127.0.0.1"; // Use an IP Adresse
-  $dbName = "ecvdphp";
-  $dbUsername = "ecvduser";
-  $dbPassword = "ecvd";
-
-  $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
-  $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // Activate exception
-} catch (\PDOException $e){
-  echo $e->getMessage();
-  exit;
-}
+require_once 'session.php';
+require_once 'functions.php';
+require_once 'connect.php';
 
 if(!isset($_SESSION['id'])){ // The user must be logged in
-  header('Location:login.php', true, 301);
-  exit;
+  redirect('login.php');
 }
 
 $message = "";
 if($_SERVER['REQUEST_METHOD'] === "POST"){
-  $newUsername = ($_POST['username'] != null) ? $_POST['username'] : "";
-  $newEmail = ($_POST['email'] != null) ? $_POST['email'] : "";
-  $newPassword = ($_POST['password'] != null) ? $_POST['password'] : "";
-  $newDescription = $_POST['description'];
-
-  var_dump("sdf");exit;
+  $newUsername = ($_POST['username'] != null) ? trim($_POST['username']) : "";
+  $newEmail = ($_POST['email'] != null) ? trim($_POST['email']) : "";
+  $newPassword = ($_POST['password'] != null) ? trim($_POST['password']) : "";
+  $newDescription = trim($_POST['description']);
 
   if($newPassword != ""){
-    $query = "UPDATE users SET 
-    password='" . password_hash($newPassword, PASSWORD_BCRYPT) . "'
-    WHERE id=" . $_SESSION['id'];
+    $stmt = $conn->prepare("UPDATE users SET password = :password WHERE id=:id");
+    $stmt->bindParam(':password', password_hash($newPassword, PASSWORD_BCRYPT));
+    $stmt->bindParam(':id', $_SESSION['id']);
   } else {
-    $query = "UPDATE users SET 
-    username='" . $newUsername  . "', 
-    email='" . $newEmail . "',
-    description='" . $newDescription . "'
-    WHERE id=" . $_SESSION['id'];
+    $stmt = $conn->prepare("UPDATE users SET username = :username, email = :email, description = :description WHERE id=:id");
+    $stmt->bindParam(':username', $newUsername);
+    $stmt->bindParam(':email', $newEmail);
+    $stmt->bindParam(':description', $newDescription);
+    $stmt->bindParam(':id', $_SESSION['id']);
   }
-  var_dump($query);
-  // $conn->exec($query);
+  if(!$stmt->execute()){
+
+  }
 }
 
 $result = $conn->query("SELECT id, username, email, description FROM users WHERE id=" . $_SESSION['id'])->fetchAll();
 $user = $result[0]; 
 
-
+include 'header.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
   <div>
-    
     <form method="post" action="">
       <fieldset>
         <legend>Your profile</legend>
@@ -81,5 +60,6 @@ $user = $result[0];
     <div class="error"><?php echo $message; ?></div>
     <a href="delete.php">Delete your account now!</a>
   </div>
-</body>
-</html>
+<?php
+include 'footer.php';
+?>

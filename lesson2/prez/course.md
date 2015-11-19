@@ -62,7 +62,6 @@ What are [super globals](http://php.net/manual/en/language.variables.superglobal
 What are they used for?
 - For example, you can use them to get some form data
 
-
 --
 # Exercice
 Write a simple form to login and access data on the php side

