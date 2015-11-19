@@ -1,1 +1,1 @@
-<footer style="height: 50px;background-color:#BADA55;">Hello I'm a Footer</footer>
+<footer style="height: 50px;background-color:#BADA55; margin-top:20px;">Hello I'm a Footer</footer>

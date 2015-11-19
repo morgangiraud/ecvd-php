@@ -32,7 +32,7 @@ if(!isset($_SESSION['username'])) {
 					$delete->execute(array($_SESSION['username']));
 					header("Location: logout.php");
 				} catch (Exception $e) {
-					die("Couldn't delete your profile : ".$e)
+					die("Couldn't delete your profile : ".$e);
 				}
 				
 			} else if(isset($_POST['update'])) {
@@ -44,7 +44,7 @@ if(!isset($_SESSION['username'])) {
 						$update->execute(array($_POST['email'], $_SESSION['username']));
 						echo "Votre email a bien été modifié !";
 					} catch (Exception $e) {
-						die("Some error occured while the updating process : ".$e)
+						die("Some error occured while the updating process : ".$e);
 					}
 
 				} else {
@@ -57,7 +57,7 @@ if(!isset($_SESSION['username'])) {
 				$response->execute(array($_SESSION['username']));
 				$datas = $response->fetch();
 			} catch (Exception $e) {
-				die("Some error occured while looking for your profile : ".$e)
+				die("Some error occured while looking for your profile : ".$e);
 			}
 
 		?>

@@ -30,7 +30,7 @@ if(isset($_SESSION['username'])) {
 					$insert = $bdd->prepare("INSERT INTO `users` (`username`, `password`, `email`, `description`) VALUES (?, ?, '', 'Ceci est une description tirée de la BDD du user');");
 					$insert->execute(array($username, $password));
 				} catch (Exception $e) {
-					die("Some error occured while the register process : ".$e)
+					die("Some error occured while the register process : ".$e);
 				}
 			}
 
