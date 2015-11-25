@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 
 $result = $conn->query("SELECT id, username, email, description,image_id FROM users WHERE id=" . $_SESSION['id'])->fetchAll();
 $user = $result[0]; 
-if(is_int($user['image_id'])){
+if($user['image_id'] != null){
   $resultImage = $conn->query("SELECT * FROM files WHERE id=" . $user['image_id'])->fetchAll();
   $image = $resultImage[0]; 
 }
@@ -67,7 +67,7 @@ include 'header.php';
         <p>
           <?php 
             if(isset($image)){
-              echo '<img src="' . $image['path'] . $image['filename'] . $image['extension'] . '"';
+              echo '<img width=240 src="' . $image['path'] . "/" . $image['filename'] . "." . $image['extension'] . '"';
             }
           ?>
           <label for="filedata">Picture :</label>
