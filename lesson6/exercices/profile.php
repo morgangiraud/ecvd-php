@@ -4,7 +4,7 @@ require_once 'functions.php';
 require_once 'connect.php';
 
 if(!isset($_SESSION['id'])){ // The user must be logged in
-  redirect('login.php');
+  ecvdphp\redirect('login.php');
 }
 
 $message = "";
@@ -30,8 +30,12 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
   }
 }
 
-$result = $conn->query("SELECT id, username, email, description FROM users WHERE id=" . $_SESSION['id'])->fetchAll();
+$result = $conn->query("SELECT id, username, email, description,image_id FROM users WHERE id=" . $_SESSION['id'])->fetchAll();
 $user = $result[0]; 
+if(is_int($user['image_id'])){
+  $resultImage = $conn->query("SELECT * FROM files WHERE id=" . $user['image_id'])->fetchAll();
+  $image = $resultImage[0]; 
+}
 
 include 'header.php';
 ?>
@@ -56,6 +60,21 @@ include 'header.php';
       <p>
         <input type="submit" value="Update" />
       </p>
+    </form>
+    <form enctype="multipart/form-data" action="upload.php" method="post">
+      <fieldset>
+        <legend>Your personal information</legend>
+        <p>
+          <?php 
+            if(isset($image)){
+              echo '<img src="' . $image['path'] . $image['filename'] . $image['extension'] . '"';
+            }
+          ?>
+          <label for="filedata">Picture :</label>
+          <input name="filedata" type="file" />
+          <input type="submit" value="Send file" />
+        </p>
+      </fieldset>
     </form>
     <a href="delete.php">Delete your account now!</a>
   </div>

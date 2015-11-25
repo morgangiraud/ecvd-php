@@ -1,5 +1,8 @@
 <?php
 	require_once ('session.php');
+	require_once('function.php');
+	use Php\Helper;
+	
 	if(isset($_SESSION['name'])){
 		echo ('Deja connecte <br> <a href="logout.php">Logout</a>');
 	}
@@ -25,13 +28,7 @@
 	echo('Nom : '.$name.'<br>');
 	echo('Mot de passe : '.$password.'<br>');
 
-	require_once('connect.php');
-
-	$stmt = $conn->prepare('SELECT username, password FROM users WHERE username = :username AND password = :password');
-	$stmt->bindParam(':username', $name, PDO::PARAM_STR);
-	$stmt->bindParam(':password', $password, PDO::PARAM_STR);
-	$stmt->execute();
-	$users = $stmt->fetchAll();
+	$users = Helper::getAllUsers($name, $password);
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(empty($_POST['name']) || empty($_POST['password']) ){

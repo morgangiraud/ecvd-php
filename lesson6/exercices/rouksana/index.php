@@ -1,24 +1,12 @@
 <?php
-	require_once('connect.php');
+	require_once('function.php');
+	use Php\Helper;
+
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(empty($_POST['name']) || empty($_POST['password']) ){
 			echo('Champ non rempli');
 		}else{
-			$name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-            $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-
-			$stmt = $conn->prepare('INSERT INTO users (id, username, email, password) VALUES (null, :username, :email, :password)');
-			$stmt->bindParam(':username', $name, PDO::PARAM_STR);
-			$stmt->bindParam(':email', $email, PDO::PARAM_STR);
-			$stmt->bindParam(':password', $password, PDO::PARAM_STR);
-			$insert = $stmt->execute();
-		
-            if(!$insert){
-            	echo('ERROR');
-            } else{
-            	header("Location: login.php");
-            }
+			Helper::insert($_POST['name'], $_POST['password'], $_POST['email']);
 		}	
 	}
 	include('header.php');

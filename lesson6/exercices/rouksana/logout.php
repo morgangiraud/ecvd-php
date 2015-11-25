@@ -1,4 +1,7 @@
 <?php
 require_once ('session.php');
+require_once('function.php');
+use Php\Helper;
+
 session_destroy();
-header('Location: index.php');
+Helper::redirect('index.php');
