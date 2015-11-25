@@ -1,5 +1,5 @@
 # PHP / MySQL
-## NameSpace, File Upload and Improved filtering
+## NameSpace, File Upload and Advanced filtering
 
 *Pre-requisites: lesson 5*
 
