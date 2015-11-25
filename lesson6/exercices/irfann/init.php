@@ -1,8 +1,8 @@
 <?php
     $host = "127.0.0.1";
     $dbname = "ecvdphp";
-    $user = "ik";//ik
-    $pass = "ecv";//ecv
+    $user = "root";//ik
+    $pass = "";//ecv
 
     try{
       $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);

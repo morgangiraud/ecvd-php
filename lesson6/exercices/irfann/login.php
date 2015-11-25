@@ -3,7 +3,7 @@
     require("init.php");
     require("header.php");
     
-    if($_SESSION['login_user'] && $_SESSION['pwd_user']){
+    if(isset($_SESSION['login_user']) && isset($_SESSION['pwd_user'])){
         header('Location: connect.php');
         exit;
     }
