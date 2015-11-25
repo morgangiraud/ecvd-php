@@ -98,17 +98,17 @@ Secure your app:
 
 Headers are in all HTTP call: request and response
 
-Look ath the network section in your browser console and check both header from the request and the response
+Look at the network section in your browser console and check both header from the request and the response
 --
 #Headers: PHP
 [`header('header-key:header-value');`](http://php.net/manual/fr/function.header.php) <!-- .element: target="_blank" -->
 
 Comme pour les sessions, les `headers` doivent être en première ligne
 ```
-<html> <!-- Du point de vue de PHP, ceci consiste déjà en une sortie  -->
+<html> <!-- From PHP Point of view, this is already an output  -->
 <?php
-/* Ceci produira une erreur. Notez la sortie ci-dessus,
- * qui se trouve avant l'appel à la fonction header() */
+/* This will show an error. Motice the upper output which
+ * is before the header function call */
 header('Location: http://www.example.com/');
 exit;
 ?>
@@ -116,6 +116,17 @@ exit;
 More [info](http://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php)
 
 Special case of [redirection](http://stackoverflow.com/questions/23993207/php-which-is-the-best-practise-of-header-location)
+
+--
+# Status Code
+Here is the [full list of HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) <!-- .element: target="_blank" -->
+
+The more important:
+- 1xx Informational
+- 2xx Success
+- 3xx Redirection
+- 4xx Client Error
+- 5xx Server Error
 
 --- 
 # Year Project
