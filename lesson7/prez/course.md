@@ -149,6 +149,34 @@ In the users profile, implement a field which allow the user tu write an the url
 - If it exists, download it.
 
 ---
+# PHAR
+> [PHAR = PHP Archive](http://php.net/manual/en/book.phar.php) <!-- .element: target="_blank" -->
+
+[PHAR](http://php.net/manual/en/phar.fileformat.php) allows you to create and distribute entire PHP applications as a single file archive <!-- .element: target="_blank" -->
+
+A PHP Archive (regardless of format) contains 3 parts:
+1. [A stub](http://php.net/manual/en/phar.fileformat.stub.php) <!-- .element: target="_blank" -->
+2. A manifest describing its contents
+3. The file contents
+
+--
+# PHAR
+All you need to create a PHAR file is:
+- An "app" folder with all your files
+- A build folder where you build the PHAR
+- Your PHP entry point for the CLI ou the webserver
+
+```php
+<?php
+$phar = new Phar("my/build/folder/myAppName.phar", 0, "app.phar");
+$phar->buildFromDirectory("./myAppFolder");
+$phar->setStub(
+  $phar->createDefaultStub(
+    "cli/entry.php", "public/entry.php"
+));
+?>
+```
+---
 ## Project: simple blog
 Using ALL the knowledge so far, implement a very simple blogging system
 
