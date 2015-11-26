@@ -12,6 +12,8 @@ Set up your environment:
 - Pull your own repo and the teacher's repo. 
 - Move into the lesson4 exercice folder 
 - Create a folder with your name, move into it
+- Add an `entry.js`, `index.html` and `webpack.config.js` file
+- Add a `app.js` file
 
 ---
 # MySQL
@@ -42,10 +44,8 @@ mysql -u username -p
 ```
 
 1. [Add a user](http://dev.mysql.com/doc/refman/5.7/en/adding-users.html) to avoid using the root user <!-- .element: target="_blank" -->
-2. Check your users: `SELECT User from mysql.user;`
-3. Show current database ` show databases;`
-4. Create a database named "ecvdphp" thanks to this [MySQL tutorial](http://dev.mysql.com/doc/refman/5.7/en/database-use.html) to: <!-- .element: target="_blank" -->
-5. Create a table named "users" with the following fields
+2. Create a database named "ecvdphp" thanks to this [MySQL tutorial](http://dev.mysql.com/doc/refman/5.7/en/database-use.html) to: <!-- .element: target="_blank" -->
+3. Create a table named "users" with fields
   - `id, username, email, password`
 
 [More on table handling](http://sql.sh/cours/alter-table) <!-- .element: target="_blank" -->
@@ -64,7 +64,8 @@ A good GUI: [sequel pro](http://www.sequelpro.com/) <!-- .element: target="_blan
 - You connect to the database server
 - You select the good database
 - You make queries
-- You disconnect from the database
+- No Exception
+- You disconnect from the databse
 
 > Everytime you have to check is an error happened
 
@@ -109,7 +110,9 @@ try{
   echo $e->getMessage();
 }
 
-$result = $conn->query('SELECT ...');
+$result = $conn->query('SELECT * WHERE 1=1');
+
+mysql_close($link);
 ?>
 ```
 
@@ -127,7 +130,7 @@ Why you [should (must) use it](http://code.tutsplus.com/tutorials/why-you-should
 > Rework your login/signin system using the PDO object!
 
 - Change your file credentials with a MySQL repo
-- Configure your database to have a users table
+- Configure your databse to have a users table
 - Use a INSERT query to insert a new line in your table users
 
 > [INSERT syntax](http://dev.mysql.com/doc/refman/5.7/en/insert.html) <!-- .element: target="_blank" -->
@@ -162,3 +165,23 @@ Add the feature: **Profile page**
 - If everything is ok, delete the account using a DELETE query
 
 > [DELETE syntax](http://dev.mysql.com/doc/refman/5.7/en/delete.html) <!-- .element: target="_blank" -->
+
+---
+# Security
+[SQL Injection](https://fr.wikipedia.org/wiki/Injection_SQL) <!-- .element: target="_blank" -->
+
+Prepare your statement with the [prepare function](http://php.net/manual/fr/pdo.prepare.php) <!-- .element: target="_blank" -->
+
+```php
+<?php
+// Prepare the statement
+$sth = $dbh->prepare('SELECT nom, couleur, calories
+    FROM fruit
+    WHERE calories < ? AND couleur = ?');
+// Execute the query
+$sth->execute(array(150, 'rouge'));
+// Fetch the result
+$red = $sth->fetchAll();
+
+```
+
