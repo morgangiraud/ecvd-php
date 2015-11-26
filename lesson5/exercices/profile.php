@@ -57,7 +57,6 @@ include 'header.php';
         <input type="submit" value="Update" />
       </p>
     </form>
-    <div class="error"><?php echo $message; ?></div>
     <a href="delete.php">Delete your account now!</a>
   </div>
 <?php
