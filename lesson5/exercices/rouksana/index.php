@@ -37,7 +37,5 @@
 		<br>
 		<input type='submit' value='Register' />
 	</form>
-	<br>
-	<a href="login.php">Login</a>
-	<br>
+	<br><a href="login.php">Login</a><br>
 <?php include('footer.php');?>

@@ -1,5 +1,5 @@
 # PHP / MySQL
-## NameSpace, File Upload and Improved filtering
+## NameSpace, File Upload and Advanced filtering
 
 *Pre-requisites: lesson 5*
 
@@ -129,10 +129,11 @@ echo $_FILES['filedata']['name'];
 --
 # Exercice
 Implement a file upload system to add a picture to the user profile
-- Add a table `file` int he DB with columns id, filename, path, extension
-- Add a form to handle file Upload
-- Implement the PHP 
+- Add a table `files` int he DB with columns id, filename, path, extension
+- Add a column `image_id` in the table `users`
+- Add a form to handle file Upload  and implement the PHP 
 - Secure your script using error, size and the function `is_uploaded_file()`, check the extension
+- Show the image in the profile
 
 ---
 # FIEO
