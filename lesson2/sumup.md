@@ -5,6 +5,7 @@
 - Session and cookie
 
 ## Homework
+- Finish in-course exerice
 - Create a login page
 - Control the session to keep a user logged in
 - Hijack a session thanks to a cookie

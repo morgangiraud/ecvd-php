@@ -7,6 +7,7 @@
 - Remote code injection
 
 ## Homework
+- Finish in-course exerice
 - Separate your code in different files
 - Secure your code with prepares statements and input filtering
 - Use try catch statement to control errors

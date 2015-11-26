@@ -9,6 +9,7 @@
 - Status code
 
 ## Homework
+- Finish in-course exerice
 - Write a login/register system using the filesystem (use a users.txt file)
 - Add a check for the the filesize and handle the case where the file is too big to be loaded in memory
 - Read the PHP CSG Page 117 - 121

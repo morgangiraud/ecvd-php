@@ -6,6 +6,7 @@
 - PDO (Insert/Select/Update/Delete)
 
 ## Homework
+- Finish in-course exerice
 - Create a database and a table
 - Update your login/register page with MySQL and PDO
 - Add a profile page where uses can update their profile and delete their account

@@ -8,6 +8,7 @@
 - Escaping output
 
 ## Homework
+- Finish in-course exerice
 - Namespace your library of function
 - Update your login/register/profile forms to handle correctly the data wit the enctype
 - Add an upload a file with HTML5
