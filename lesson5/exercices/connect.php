@@ -2,8 +2,8 @@
 try{
   $host = "127.0.0.1"; // Use an IP Adresse
   $dbName = "ecvdphp";
-  $dbUsername = "ecvduser";
-  $dbPassword = "ecvd";
+  $dbUsername = "root";
+  $dbPassword = "root";
 
   $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
   $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); // Activate exception
