@@ -1,5 +1,5 @@
 # PHP / MySQL
-## MySQL and Streams
+## MySQL, Streams and PHAR
 
 *Pre-requisites: lesson 6*
 
