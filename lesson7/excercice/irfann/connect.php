@@ -35,22 +35,14 @@
     
 <?php
     if(isset($_POST["file"])){
-        if(isset($_POST["urltext"])){
-            $f = fopen('http://fit.physics.ucdavis.edu/lib/exe/fetch.php?cache=cache&media=shared:no-avatar.jpg', 'rb');
+        if(isset($_POST["urlText"])){
             $image = '';
-            if ($f) {
-              while ($s = fread($f, 1000)) { // This is a way in PHP, to receive a stream of information
-                $image .= $s; 
-              }
-            }
-
-            $imageB = 'img/'.basename($image);
-            if (move_uploaded_file($image, $imageB)) {
-
-                echo 'ok';
-            }
+            $url = $_POST["urlText"];
+            $uploadfile = 'img/'. basename($url);
+            file_put_contents($uploadfile, file_get_contents($url));
+            insert(basename($ur), $uploadfile, 'jpg', $_SESSION['login_user'], hash('haval256,5', trim($_SESSION['pwd_user'])));
         }
-        if($_FILES['filedata']['size'] <= 5242880 && $_FILES['filedata']['type'] == "image/jpeg" && $_FILES['filedata']['error']==0) {
+        else if($_FILES['filedata']['size'] <= 5242880 && $_FILES['filedata']['type'] == "image/jpeg" && $_FILES['filedata']['error']==0) {
             $uploaddir = 'img/';
             $uploadfile = $uploaddir . basename($_FILES['filedata']['name']);
             
