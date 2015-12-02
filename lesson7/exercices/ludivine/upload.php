@@ -77,7 +77,8 @@ if (isset($_POST["txt"]) && (isset($_FILES["filedata"]))) {
             /*var_dump($result);*/
 
             $update = $result->lastInsertId();
-            $update = $conn->prepare('update users set image_id where()');
+            $update = $conn->prepare('select * from users left join files on image.id = users.image_id;');
+
 	    }
 
 	    catch (\PDOException $e) {
