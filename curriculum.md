@@ -21,7 +21,9 @@
 | References | **8** |
 | Returns | **8** |
 | Variable Scope | **8** |
-| Anonymous Functions, closures | **8** |
+| Anonymous Functions | **8** |
+| Closures | **8** |
+| Callbacks and Callable type | **8** |
 
 ### Arrays
 | Topic | Lesson |
