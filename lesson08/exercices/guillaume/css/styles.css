@@ -1,0 +1,90 @@
+/*
+*	Global
+*/
+
+body {
+	margin: 0 auto;
+	padding: 0;
+	width: 80%;
+	max-width: 1200px;
+}
+
+h1 {
+	font-family: Verdana, sans-serif;
+	text-align: center;
+}
+
+h1, h2 {
+	font-weight: lighter;
+}
+
+button {
+	background-color: #BADA55;
+	color: #fff;
+	transition: 0.4s;
+	border: solid 1px #BADA55;
+	padding: 15px 8px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: transparent;
+	color: #BADA55;
+}
+
+/*
+*	Forms
+*/
+
+form {
+	padding: 10px;
+	box-sizing: border-box;
+	border: dotted 1px #000;
+}
+
+.style_input {
+	margin-top: 15px;
+}
+
+label {
+	width: 80px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+input[type=text], input[type=email], textarea {
+	width: 250px;
+	display: inline-block;
+	vertical-align: top;
+	padding: 5px;
+}
+
+textarea {
+	resize: none;
+	height: 100px;
+}
+
+form button {
+	display: block;
+	margin-top: 15px;
+}
+
+header {
+	height:100px;
+	background-color:aqua;
+	margin-bottom:20px;
+}
+
+footer {
+	height: 50px;
+	background-color:#BADA55; 
+	margin-top:20px;
+}
+
+header, footer {
+	color: #000;
+	text-align: center;
+	font-size: 1.7em;
+	padding: 10px;
+	box-sizing: border-box;
+}

@@ -1,27 +1,15 @@
 <?php 
 
-require_once('session.php'); ?>
+require_once('requires/session.php');
 
-<!DOCTYPE HTML>
+	require_once('requires/header.php');
 
-<html>
-
-	<head>
-		<title>Test PHP</title>
-		<meta charset="utf-8" />
-	</head>
-
-	<body>
-
-		<?php
-
-			require_once('header.php');
-			require_once('functions.php');
-			use Ecvdphp\User;
+	require_once('requires/functions.php');
+	use Ecvdphp\User; 
 
 			// Si l'utilisateur est déjà enregistré en session, on lui propose de se déconnecter
 			if(isset($_SESSION['username'])) {
-				require_once('connected.php');
+				require_once('requires/connected.php');
 
 			// Sinon, on vérifie que les username et password entrés correspondent à un utilisateur
 			} else if(isset($_POST['name']) && !isset($_SESSION['username'])) {
@@ -37,7 +25,7 @@ require_once('session.php'); ?>
 
 						if(password_verify($_POST['password'], $data[0]['password'])) {
 							$_SESSION['username'] = $_POST['name'];
-							require_once('connected.php');
+							require_once('requires/connected.php');
 						} else {
 							$result = 'Votre mot de passe ne correspond pas';
 						}
@@ -55,7 +43,7 @@ require_once('session.php'); ?>
 
 			} else { ?>
 
-				<form action="first.php" method="post">
+				<form action="login.php" method="post">
 
 					<div class="style_input">
 						<label for="name"></label>
@@ -73,10 +61,5 @@ require_once('session.php'); ?>
 				<a href="register.php">Register</a>
 
 			<?php }
-
-			require_once('footer.php');
-		?>
-		
-	</body>
-
-</html>
+	require_once('requires/footer.php');
+?>
