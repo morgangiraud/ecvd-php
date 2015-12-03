@@ -21,9 +21,9 @@ require_once('requires/session.php');
 					$data = User::getUser($_POST['name']);
 
 					// Pour chaque utilisateur, on check
-					if(isset($data[0])) {
+					if($data !== null) {
 
-						if(password_verify($_POST['password'], $data[0]['password'])) {
+						if(password_verify($_POST['password'], $data['password'])) {
 							$_SESSION['username'] = $_POST['name'];
 							require_once('requires/connected.php');
 						} else {
