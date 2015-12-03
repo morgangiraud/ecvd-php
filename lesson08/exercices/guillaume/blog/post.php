@@ -24,6 +24,7 @@
 			}
 
 		?>
+			<a href="index.php">Retour sur les posts</a>
 			<h1><?=$post['title']?></h1>
 
 			<p><?=$post['body']?></p>

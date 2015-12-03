@@ -34,21 +34,6 @@ class User {
 		return $response->fetch();
 	}
 
-	public static function getPostById($user_id = 1, $post_id = 1) {
-		global $bdd;
-
-		try {
-			$response = $bdd->prepare("SELECT * FROM `posts` WHERE `user_id` = :user_id AND `id` = :id");
-			$response->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
-			$response->bindParam(':id', $post_id, \PDO::PARAM_STR);
-			$response->execute();
-
-			return $response->fetch();
-		} catch(Exception $e) {
-			die('error');
-		}
-	}
-
 	public static function getFileById($file_id) {
 		global $bdd;
 
@@ -176,5 +161,36 @@ class User {
 		} catch (Exception $e) {
 			die("Some error occured while the register process : ".$e);
 		}
+	}
+
+	public static function getPostById($user_id = 1, $post_id = 1) {
+		global $bdd;
+
+		try {
+			$response = $bdd->prepare("SELECT * FROM `posts` WHERE `user_id` = :user_id AND `id` = :id");
+			$response->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
+			$response->bindParam(':id', $post_id, \PDO::PARAM_STR);
+			$response->execute();
+
+			return $response->fetch();
+		} catch(Exception $e) {
+			die('error');
+		}
+	}
+
+	public static function getAllPosts($user_id) {
+		global $bdd;
+
+		try {
+			$response = $bdd->prepare("SELECT * FROM `posts` WHERE `user_id` = :user_id");
+			$response->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
+			$response->execute();
+
+			return $response->fetchAll();
+		} catch(Exception $e) {
+			die('error');
+		}
+
+		return $posts;
 	}
 }

@@ -3,13 +3,29 @@
 	require_once('../requires/header.php');
 
 	require_once('../requires/functions.php');
-	use Ecvdphp\User; 
+	use Ecvdphp\User;
+
+	$user = User::getUser();
+
+	$all_posts = User::getAllPosts($user['id']);
 	
 	if(isset($_POST) && isset($_POST['post_article'])) {
 		User::insertPost();
 	}
 
 ?>
+
+<h1>Voir les articles</h1>
+
+<details>
+
+	<?php foreach ($all_posts as $post) { ?>
+		<div>
+			<a href="post.php?id=<?=$post['id']?>"><?=$post['title']?></a>
+		</div>
+	<?php } ?>
+	
+</details>
 
 <h1>Ecrire un article</h1>
 
