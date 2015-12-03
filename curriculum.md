@@ -1,89 +1,96 @@
-## PHP / MySQL - Programme
+## PHP / MySQL - Curriculum
 
-#### PHP Basics
-- Syntax **(l1)**
-- Operators **(l1)**
-- Variables **(l1)**
-- Control Structures **(l1)**
-- Language Constructs and Functions **(l1)**
-- Namespaces **(l6)**
-- Extensions **(l11)**
-- Config **(l1)**
-- Performance/bytecode caching **(l11)**
+### PHP Basics
+| Topic | Lesson |
+|---------|:--------:|
+| Syntax | **1** |
+| Operators | **1** |
+| Variables | **1** |
+| Control Structures | **1** |
+| Language Constructs and Functions | **1** |
+| Namespaces | **6** |
+| Extensions | **11** |
+| Config | **1** |
+| Performance/bytecode caching | **11** |
 
-#### Functions
-- Arguments **(l8)**
-- Variables **(l8)**
-- References **(l8)**
-- Returns **(l8)**
-- Variable Scope **(l8)**
-- Anonymous Functions, closures **(l8)**
+### Functions
+| Topic | Lesson |
+|---------|:--------:|
+| Arguments | **8** |
+| Variables | **8** |
+| References | **8** |
+| Returns | **8** |
+| Variable Scope | **8** |
+| Anonymous Functions | **8** |
+| Closures | **8** |
+| Callbacks and Callable type | **8** |
 
-#### Arrays
-- Associative Arrays **(l9)**
-- Array Iteration **(l9)**
-- Array Functions **(l9)**
-- SPL, Objects as arrays  **(l9)**
-- Casting **(l9)**
+### Arrays
+| Topic | Lesson |
+|---------|:--------:|
+| Associative Arrays | **9** |
+| Array Iteration | **9** |
+| Array Functions | **9** |
+| SPL, Objects as arrays  | **9** |
+| Casting | **9** |
 
-#### Web Features
-- Anatomy of a webpage **(l2)**
-- Sessions **(l3)**
-- Forms **(l6) **
-- GET and POST data **(l3)**
-- Cookies **(l3)**
-- HTTP Headers **(l3)**
-- HTTP Authentication **(l11)**
-- HTTP Status Codes **(l3)**
+### Web Features
+| Topic | Lesson |
+|---------|:--------:|
+| Anatomy of a webpage | **2** |
+| Sessions | **3** |
+| Forms | **6** |
+| GET and POST data | **3** |
+| Cookies | **3** |
+| HTTP Headers | **3** |
+| HTTP Authentication | **11** |
+| HTTP Status Codes | **3** |
 
-#### Security
-- Configuration **(l11)**
-- Session Security **(l3)**
-- Cross-Site Scripting **(l11)**
-- Cross-Site Request Forgeries **(l11)**
-- SQL Injection **(l5)**
-- Remote Code Injection **(l5)**
-- Email Injection **(l11)**
-- Filter Input **(l6)**
-- Escape Output **(l6)**
-- Encryption, Hashing algorithms **(l3)**
-- File uploads **(l6)**
-- PHP Configuration
-- Password hashing API **(l3)**
+### Security
+| Topic | Lesson |
+|---------|:--------:|
+| Configuration | **11** |
+| Session Security | **3** |
+| Cross-Site Scripting | **11** |
+| Cross-Site Request Forgeries | **11** |
+| SQL Injection | **5** |
+| Remote Code Injection | **5** |
+| Email Injection | **11** |
+| Filter Input | **6** |
+| Escape Output | **6** |
+| Encryption, Hashing algorithms | **3** |
+| File uploads | **6** |
+| Password hashing API | **3** |
 
-#### I/O
-- Files **(l2)**
-- Reading **(l2)**
-- Writing **(l2)**
-- File System Functions **(l2)**
-- Streams **(l7)**
-- Contexts **(l7)**
-- PHAR **(l7)**
+### I/O
+| Topic | Lesson |
+|---------|:--------:|
+| Files | **2** |
+| Reading | **2** |
+| Writing | **2** |
+| File System Functions | **2** |
+| Streams | **7** |
+| Contexts | **7** |
+| PHAR | **7** |
 
-#### Strings & Patterns
-- Quoting **(l10)**
-- Matching **(l10)**
-- Extracting **(l10)**
-- Searching **(l10)**
-- Replacing **(l10)**
-- Formatting **(l10)**
-- PCRE **(l10)**
-- NOWDOC **(l10)**
-- Encodings **(l10)**
+### Strings & Patterns
+| Topic | Lesson |
+|---------|:--------:|
+| Quoting | **10** |
+| Matching | **10** |
+| Extracting | **10** |
+| Searching | **10** |
+| Replacing | **10** |
+| Formatting | **10** |
+| PCRE | **10** |
+| NOWDOC | **10** |
+| Encodings | **10** |
 
-#### Databases & SQL
-- SQL **(l4)**
-- Joins **(l7)**
-- Prepared Statements **(l5)**
-- Transactions **(l7)**
-- PDO **(l4)**
-
-#### Data Format & Types
-- XML Basics **(l12)**
-- SimpleXML **(l12)**
-- XML Extension **(l12)**
-- Webservices Basics
-- SOAP **(l12)**
-- JSON  **(l12)**
-- DateTime **(l12)**
-- DOMDocument **(l12)**
+### Databases & SQL
+| Topic | Lesson |
+|---------|:--------:|
+| SQL | **4** |
+| Joins | **7** |
+| Prepared Statements | **5** |
+| Transactions | **7** |
+| PDO | **4** |
