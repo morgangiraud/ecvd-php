@@ -3,6 +3,7 @@
 require('session.php');
 require('header.php');
 require('functions.php');
+require('connect_db.php');
 ?>
 
 

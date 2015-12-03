@@ -1,15 +1,23 @@
 <?php
-    	$username = "root";
-    	$password = "";
-    	$host = "127.0.0.1";
-    	$dbname = "ecvdphp";
 
-	    try{
-	    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-	    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); 
-	    }   
-	    catch (\PDOException $e){
-	    echo $e->getMessage();
-	    }
+function userPosts() {
+	global $conn;
 
+	try {
+
+		$result = $conn->prepare('select * from posts');
+	}
+
+	catch (\PDOException $e) {
+        echo $e->getMessage();		
+	}
+	return $result;
+}
+
+function updatedb() {
+	global $conn;
+
+	$update = $result->lastInsertId();
+    $update = $conn->prepare('select * from posts left join files on image.id = posts.image_id;');
+}
 ?>

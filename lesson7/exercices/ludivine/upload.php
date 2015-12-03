@@ -53,28 +53,17 @@ if (isset($_POST["txt"]) && (isset($_FILES["filedata"]))) {
 	echo $fp;
 }*/
 
-    	$username = "root";
-    	$password = "";
-    	$host = "127.0.0.1";
-    	$dbname = "ecvdphp";
-
-	    try{
-	    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-	    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); 
-	    }   
-	    catch (\PDOException $e){
-	    echo $e->getMessage();
-	    }
+require('connect_db.php');
 
 
-	    try {
+/*	    try {
 
 	    	$result = $conn->prepare('insert into files values (null, :filename, :path, :extension)');
 	    	$result->bindParam(':filename', $nomFichier[0], PDO::PARAM_STR);
             $result->bindParam(':path', $uploaddir, PDO::PARAM_STR);
             $result->bindParam(':extension', $extension, PDO::PARAM_STR);
 			$result->execute();
-            /*var_dump($result);*/
+            var_dump($result);
 
             $update = $result->lastInsertId();
             $update = $conn->prepare('select * from users left join files on image.id = users.image_id;');
@@ -83,6 +72,6 @@ if (isset($_POST["txt"]) && (isset($_FILES["filedata"]))) {
 
 	    catch (\PDOException $e) {
             echo $e->getMessage();
-         }
+         }*/
 
 ?>

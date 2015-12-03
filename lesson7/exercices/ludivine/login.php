@@ -3,6 +3,7 @@
 require('session.php');
 require('functions.php');
 require('header.php');
+require('connect_db.php');
    /* echo trim($_POST["nom"]);
     echo trim($_POST["mdp"]);
     echo trim($_POST["email"]);*/
