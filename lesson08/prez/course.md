@@ -25,7 +25,7 @@ By default, the **`assignment`** operators work by value
 $salary = 100;
 $commission = $salary;
 $commission = 200;
-echo $salary; // Outputs 10
+echo $salary; // → 100
 ?>
 ```
 ![ Assignment by value ](By-Value-and-By-Reference-0.png)
@@ -39,7 +39,7 @@ We can also use the **`assignment`** operator with reference!
 $salary = 100;
 $commission = &$salary;
 $commission = 200;
-echo $salary; // Outputs 20
+echo $salary; // → 200
 ?>
 ```
 ![ Assignment by value ](By-Value-and-By-Reference-1.png)
@@ -70,7 +70,7 @@ function yo() {
   return "Yo World"; // No output is shown
 }
 $txt = yo();// Assigns the return value "Yo World" to $txt
-echo $txt; // Displays "Yo World"
+echo $txt; // → "Yo World"
 ?>
 ```
 
@@ -89,8 +89,8 @@ function yo($who) {
   echo ", how are you";
 }
   
-yo("World"); // Displays "Yo World"
-yo("Dude") // Displays "Yo Dude, how are you?"
+yo("World"); // → "Yo World"
+yo("Dude") // → "Yo Dude, how are you?"
 ?>
 ```
 
@@ -178,7 +178,7 @@ You can use the $GLOBALS superglobal array
 $a = "Yo";
 $b = "World";
 function yo() {
-   echo $GLOBALS['a'] .' '. $GLOBALS['b'];
+   echo $GLOBALS['a'] . ' ' . $GLOBALS['b'];
 }
 yo(); // → "Yo World"
 ?>
