@@ -4,4 +4,4 @@ require_once 'functions.php';
 
 session_destroy();
 
-ecvdphp\redirect('login.php');
+ecvdphp\redirect('index.php');

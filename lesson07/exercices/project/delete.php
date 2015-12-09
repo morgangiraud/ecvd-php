@@ -13,4 +13,4 @@ if(!$stmt->execute()){
   ecvdphp\addFlashMessage('success', 'Your account has been deleted');
 }
 
-ecvdphp\redirect('login.php');
+ecvdphp\redirect('index.php');
