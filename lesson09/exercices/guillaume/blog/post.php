@@ -20,7 +20,7 @@
 			Post::deletePost($_GET['id']);
 
 		} else if(!$post) {
-			echo "Ce post n'existe pas";
+			echo "This post doesn't exist.";
 		} else { 
 			if($post['image_id'] !== null) $picture = User::getFileById($post['image_id']);
 
