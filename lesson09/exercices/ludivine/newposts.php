@@ -20,12 +20,12 @@
 <h3> Add post </h3>
 <form action="profile.php" method="post">
     <div>
-        <label for="title">Title* :</label>
-        <input type="text" id="title" />
+        <label for="title">Title :</label>
+        <input type="text" name="title" />
     </div>
     <br />
     <div>
-        <label for="body">Body* :</label>
+        <label for="body">Body :</label>
         <textarea name="body"></textarea>
     </div>
     <br />
