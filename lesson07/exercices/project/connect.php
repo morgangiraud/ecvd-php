@@ -11,20 +11,3 @@ try{
   echo $e->getMessage();
   exit;
 }
-
-function updateUserImage($userId, $filename, $path, $extension){
-  global $conn;
-
-  $conn->beginTransaction();
-  $stmt = $conn->prepare("INSERT INTO files (filename, path, extension) VALUES (?, ?, ?)");
-  $stmt->bindParam(1, $filename);
-  $stmt->bindParam(2, $path);
-  $stmt->bindParam(3, $extension);
-  $stmt->execute();
-  $id = $conn->lastInsertId();
-  $stmt = $conn->prepare("UPDATE users u SET image_id = ? where u.id=?");
-  $stmt->bindParam(1, $id);
-  $stmt->bindParam(2, $userId);
-  $stmt->execute();
-  $conn->commit();
-}
