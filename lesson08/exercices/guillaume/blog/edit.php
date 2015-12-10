@@ -19,27 +19,28 @@
 			echo "Ce post n'existe pas";
 		} else { 
 
-			if($post['image_id'] !== null) {
-				$picture = User::getFileById($post['image_id']);
-			}
-
+			if($post['image_id'] !== null) $picture = User::getFileById($post['image_id']);
 		?>
-			<a href="index.php">Retour sur les posts</a>
-			<h1><?=$post['title']?></h1>
 
-			<p><?=$post['body']?></p>
+			<a href="post.php?id=<?=$_GET['id']?>">Get back on post</a>
 
-			<?php if($post['image_id'] !== null) { ?>
-				<img src="<?=$picture['path']?><?=$picture['filename']?>" width="150" alt="">
-			<?php } ?>
+			<form action="edit.php" method="post">
+				<h2>Title</h2>
+				<input type="text" value="<?=$post['title']?>">
 
-			<a href="edit.php?id=<?=$_GET['id']?>">Modifier ce post</a>
+				<h2>Content</h2>
+				<textarea name="" id="" cols="30" rows="10"><?=$post['body']?></textarea>
+				
+				<div>
+					<button>Save</button>
+				</div>
+			</form>
 
 		<?php 
 		}
 
 	} else {
-		echo "Veuillez mettre un id de post dans l'url";
+		echo "Please put a post id valid in the URL.";
 	}
 
 	require_once('../requires/footer.php');

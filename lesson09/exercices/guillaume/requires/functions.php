@@ -162,6 +162,43 @@ class User {
 		}
 	}
 
+	public static function editPost($id, $title, $body) {
+		global $bdd;
+
+		try {
+			$update = $bdd->prepare("UPDATE `posts` SET `title` = :title, `body` = :body WHERE id = :id ");
+
+			$update->bindParam(':id', $id, \PDO::PARAM_INT);
+			$update->bindParam(':title', $title, \PDO::PARAM_STR);
+			$update->bindParam(':body', $body, \PDO::PARAM_STR);
+
+			if($update->execute()) {
+				echo 'The modifications have been done !';
+			}
+			
+		} catch (Exception $e) {
+			die("Some error occured while the register process : ".$e);
+		}
+	}
+
+	public static function deletePost($id) {
+		global $bdd;
+
+		try {
+			$delete = $bdd->prepare("DELETE FROM `posts` WHERE id = :id ");
+			$delete->bindParam(':id', $id, \PDO::PARAM_INT);
+
+			if($delete->execute()) {
+				echo 'Your post have been deleted ! <a href="index.php">Return to your posts list</a>';
+			} else {
+				echo 'error';
+			}
+			
+		} catch (Exception $e) {
+			die("Some error occured while the register process : ".$e);
+		}
+	}
+
 	public static function getPostById($user_id = 1, $post_id = 1) {
 		global $bdd;
 

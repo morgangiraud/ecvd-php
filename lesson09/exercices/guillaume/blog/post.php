@@ -15,13 +15,15 @@
 		$user = User::getUser();
 		$post = User::getPostById($user['id'], $_GET['id']);
 
-		if(!$post) {
+		if(isset($_POST) && isset($_POST['delete_post'])) {
+
+			User::deletePost($_GET['id']);
+
+		} else if(!$post) {
 			echo "Ce post n'existe pas";
 		} else { 
 
-			if($post['image_id'] !== null) {
-				$picture = User::getFileById($post['image_id']);
-			}
+			if($post['image_id'] !== null) $picture = User::getFileById($post['image_id']);
 
 		?>
 			<a href="index.php">Retour sur les posts</a>
@@ -35,11 +37,16 @@
 
 			<a href="edit.php?id=<?=$_GET['id']?>">Modifier ce post</a>
 
+			<form action="post.php?id=<?=$_GET['id']?>" method="post">
+				<input type="hidden" name="delete_post" />
+				<button>Delete this post</button>
+			</form>
+
 		<?php 
 		}
 
 	} else {
-		echo "Veuillez mettre un id de post dans l'url";
+		echo "Please put a post ID in the URL.";
 	}
 
 	require_once('../requires/footer.php');
