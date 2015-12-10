@@ -1,3 +1,5 @@
 <?php
-session_start();
-session_regenerate_id();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+  session_regenerate_id();
+}

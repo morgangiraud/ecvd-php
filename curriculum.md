@@ -28,11 +28,10 @@
 ### Arrays
 | Topic | Lesson |
 |---------|:--------:|
-| Associative Arrays | **9** |
+| Arrays | **9** |
 | Array Iteration | **9** |
 | Array Functions | **9** |
-| SPL, Objects as arrays  | **9** |
-| Casting | **9** |
+| Array as Stacks and Queues | **9** |
 
 ### Web Features
 | Topic | Lesson |
