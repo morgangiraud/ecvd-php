@@ -1,6 +1,5 @@
 <?php 
 
-namespace Login;
 require_once('session.php'); ?>
 
 <!DOCTYPE HTML>
@@ -17,15 +16,12 @@ require_once('session.php'); ?>
 		<?php
 
 			require_once('header.php');
-			use Ecvdphp\User as User;
-
-			// require_once('functions.php');
+			require_once('functions.php');
+			use Ecvdphp\User;
 
 			// Si l'utilisateur est déjà enregistré en session, on lui propose de se déconnecter
 			if(isset($_SESSION['username'])) {
-				echo 'Vous êtes bien connecté !';
-				echo '<a href="logout.php">Disconnect</a><br />';
-				echo '<a href="profile.php">Voir mon profil</a>';
+				require_once('connected.php');
 
 			// Sinon, on vérifie que les username et password entrés correspondent à un utilisateur
 			} else if(isset($_POST['name']) && !isset($_SESSION['username'])) {
@@ -34,17 +30,14 @@ require_once('session.php'); ?>
 
 				if(!empty($_POST['name']) && !empty($_POST['password'])) {
 
-					$data = User\getUser($_POST['name']);
+					$data = User::getUser($_POST['name']);
 
 					// Pour chaque utilisateur, on check
 					if(isset($data[0])) {
 
 						if(password_verify($_POST['password'], $data[0]['password'])) {
-
-							echo 'Vous êtes bien connecté !';
 							$_SESSION['username'] = $_POST['name'];
-							echo '<a href="logout.php">Disconnect</a><br />';
-							echo '<a href="profile.php">Voir mon profil</a>';
+							require_once('connected.php');
 						} else {
 							$result = 'Votre mot de passe ne correspond pas';
 						}
@@ -58,9 +51,7 @@ require_once('session.php'); ?>
 				}
 
 				// Sinon, on lui affiche l'erreur
-				if($result !== '') {
-					echo $result;
-				}
+				if($result !== '') echo $result;
 
 			} else { ?>
 
@@ -84,7 +75,6 @@ require_once('session.php'); ?>
 			<?php }
 
 			require_once('footer.php');
-
 		?>
 		
 	</body>
