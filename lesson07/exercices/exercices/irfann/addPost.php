@@ -26,7 +26,8 @@
 	if(isset($_POST["title"]) && isset($_POST["body"])){
 		$user = getUser($_SESSION['login_user'], hash('haval256,5', trim($_SESSION['pwd_user'])));
  		$user_id = $user->fetch()['id'];
-		addPosts($_POST["title"], $_POST["body"], 2, $user_id);
+        $lastId = addImage(basename($_FILES['filedata']['name']), $uploadfile, $_FILES['filedata']['type']);
+		addPosts($_POST["title"], $_POST["body"], $lastId, $user_id);
 	}else{
 		die("manque d'information");
 	}

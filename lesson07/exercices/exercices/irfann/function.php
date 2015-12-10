@@ -114,6 +114,7 @@
 		date_default_timezone_set('UTC');
 		$date = date("Y-m-d h:i:s");
 		try{
+			$conn->beginTransaction();
 			$result = $conn->prepare('insert into posts values (null, :title, :body, :user_id, :image_id, :created_at)');
 			$result->bindParam(":title", $title, PDO::PARAM_STR);
             $result->bindParam(":body", $body, PDO::PARAM_STR);
@@ -121,9 +122,30 @@
             $result->bindParam(":image_id", $image_id, PDO::PARAM_INT);
             $result->bindParam(":created_at", $date, PDO::PARAM_STR);
             $result->execute();
+            $conn->commit();
 		}catch (Exception $e){
 			echo $e->getMessage();
 		}
+	}
+
+	function addImage($filename, $uploadfile, $type)
+	{
+		global $conn;
+		try{
+			$conn->beginTransaction();
+			$result = $conn->prepare('insert into files values (null, :filename, :path, :extension)');
+            $result->bindParam(":filename", $filename, PDO::PARAM_STR);
+            $result->bindParam(":path", $uploadfile, PDO::PARAM_STR);
+            $result->bindParam(":extension", $type, PDO::PARAM_STR);
+            $result->execute();
+            $conn->commit();
+            $lastId = $conn->lastInsertId();
+
+		}catch (Exception $e){
+			echo $e->getMessage();
+		}
+
+		return $lastId;
 	}
 
 	function editPost($title, $body, $image_id, $idPost){

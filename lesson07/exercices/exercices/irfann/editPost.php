@@ -5,7 +5,7 @@
 	require 'function.php';
 ?>
 
-<h2>Add post</h2>
+<h2>Edit post</h2>
 
    <form enctype="multipart/form-data" method="post">
         <p>title:
