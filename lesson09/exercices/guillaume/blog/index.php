@@ -4,12 +4,13 @@
 
 	require_once('../requires/functions.php');
 	use Ecvdphp\User;
+	use Ecvdphp\Post;
 
 	$user = User::getUser();
 
-	$all_posts = User::getAllPosts($user['id']);
+	$all_posts = Post::getAllPosts($user['id']);
 	
-	if(isset($_POST) && isset($_POST['post_article'])) User::insertPost();
+	if(isset($_POST) && isset($_POST['post_article'])) Post::insertPost();
 ?>
 
 <h1>Voir les articles</h1>

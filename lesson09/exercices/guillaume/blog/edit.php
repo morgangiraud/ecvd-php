@@ -5,22 +5,20 @@
 		exit();
 	}
 
-
-
 	require_once('../requires/header.php');
-
 	require_once('../requires/functions.php');
 	use Ecvdphp\User;
+	use Ecvdphp\Post;
 
-	if(isset($_POST) && isset($_POST['edit_article'])) User::editPost($_GET['id'], $_POST['title'], $_POST['body']);
+	if(isset($_POST) && isset($_POST['edit_article'])) Post::editPost($_GET['id'], $_POST['title'], $_POST['body']);
 
 	if(isset($_GET['id'])) {
 
 		$user = User::getUser();
-		$post = User::getPostById($user['id'], $_GET['id']);
+		$post = Post::getPostById($user['id'], $_GET['id']);
 
 		if(!$post) {
-			echo "Ce post n'existe pas";
+			echo "This post doesn't exist.";
 		} else { 
 
 			if($post['image_id'] !== null) $picture = User::getFileById($post['image_id']);

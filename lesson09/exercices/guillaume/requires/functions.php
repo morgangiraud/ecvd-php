@@ -5,7 +5,6 @@ require_once('connect.php');
 
 class User {
 
-	// Fonction d'insertion d'un user en BDD
 	public static function insertUser($username = '', $password = '') {
 		global $bdd;
 
@@ -13,24 +12,26 @@ class User {
 
 		try {
 			$insert = $bdd->prepare("INSERT INTO `users` (`username`, `password`, `email`, `description`) VALUES (:username, :password, '', 'Ceci est une description tirée de la BDD du user');");
-			$insert->bindParam(':username', $username, \PDO::PARAM_STR);
-			$insert->bindParam(':password', $password, \PDO::PARAM_STR);
-			$insert->execute();
+			$insert
+				->bindParam(':username', $username, \PDO::PARAM_STR);
+				->bindParam(':password', $password, \PDO::PARAM_STR);
+				->execute();
 		} catch (Exception $e) {
 			die("Some error occured while the register process : ".$e);
 		}
 	}
 
-	// On récupère la connexion à la BDD
 	public static function getUser($username = '') {
 		global $bdd;
 
-		if($username === '') $username = $_SESSION['username'];
+		$username = ($username === '') ? $_SESSION['username'] : $username;
 
 		// On récupère les utilisateurs enregistrés dans la base de données
 		$response = $bdd->prepare("SELECT * FROM `users` WHERE `username` = :username");
-		$response->bindParam(':username', $username, \PDO::PARAM_STR);
-		$response->execute();
+		$response
+				->bindParam(':username', $username, \PDO::PARAM_STR);
+				->execute();
+
 		return $response->fetch();
 	}
 
@@ -38,8 +39,9 @@ class User {
 		global $bdd;
 
 		$response = $bdd->prepare("SELECT * FROM `files` WHERE `id` = :file_id");
-		$response->bindParam(':file_id', $file_id, \PDO::PARAM_STR);
-		$response->execute();
+		$response
+			->bindParam(':file_id', $file_id, \PDO::PARAM_STR);
+			->execute();
 
 		return $response->fetch();
 	}
@@ -53,27 +55,17 @@ class User {
 			$file = $_FILES['filedata'];
 
 			if($file['error'] === 0) {
-
 				if($file['size'] !== 0) {
-
 					if($file['type']) {
 
 						return $file;
 
-					} else {
-						$result = "Le type de fichier ne correspond pas";
-					}
-
-				} else {
-					$result = 'Bug de taille de fichier';
-				}
-
-			} else {
-				$result = $file['error'];
-			}
+					} else { $result = "The file type doesn't correspond."; }
+				} else { $result = 'Bug from filesize.'; }
+			} else { $result = $file['error']; }
 
 		} else {
-			$result = "Bug de fichier";
+			$result = "Bug from the file. Doesn't exist or has been bad uploaded.";
 		}
 
 		return $result;
@@ -120,14 +112,17 @@ class User {
 		try {
 			$update = $bdd->prepare("UPDATE `users` SET `image_id`= ? WHERE `username` = ?");
 			$update->execute(array($the_id, $_SESSION['username']));
-
 			$result = 'Good !';
+
 		} catch (Exception $e) {
-			$result = 'Erreur !';
+			$result = 'Error !';
 		}
 
 		return $result;
 	}
+}
+
+class Post {
 
 	public static function insertPost() {
 		global $bdd;
@@ -142,18 +137,18 @@ class User {
 		$user = User::getUser();
 
 		try {
-
 			$insert = $bdd->prepare("
 				INSERT INTO `posts` (`title`, `body`, `user_id`, `image_id`, `created_at`) 
 				VALUES 				(:title, :body, :user_id, :image_id, :created_at)
 			");
 
-			$insert->bindParam(':title', $title, \PDO::PARAM_STR);
-			$insert->bindParam(':body', $body, \PDO::PARAM_STR);
-			$insert->bindParam(':user_id', $user['id'], \PDO::PARAM_INT);
-			$insert->bindParam(':image_id', $picture, \PDO::PARAM_INT);
-			$insert->bindParam(':created_at', $date, \PDO::PARAM_STR);
-			$insert->execute();
+			$insert
+				->bindParam(':title', $title, \PDO::PARAM_STR);
+				->bindParam(':body', $body, \PDO::PARAM_STR);
+				->bindParam(':user_id', $user['id'], \PDO::PARAM_INT);
+				->bindParam(':image_id', $picture, \PDO::PARAM_INT);
+				->bindParam(':created_at', $date, \PDO::PARAM_STR);
+				->execute();
 
 			echo '<a href="post.php?id='.$bdd->lastInsertId().'">Go see your post</a>';
 
@@ -168,9 +163,10 @@ class User {
 		try {
 			$update = $bdd->prepare("UPDATE `posts` SET `title` = :title, `body` = :body WHERE id = :id ");
 
-			$update->bindParam(':id', $id, \PDO::PARAM_INT);
-			$update->bindParam(':title', $title, \PDO::PARAM_STR);
-			$update->bindParam(':body', $body, \PDO::PARAM_STR);
+			$update
+				->bindParam(':id', $id, \PDO::PARAM_INT);
+				->bindParam(':title', $title, \PDO::PARAM_STR);
+				->bindParam(':body', $body, \PDO::PARAM_STR);
 
 			if($update->execute()) {
 				echo 'The modifications have been done !';
@@ -204,9 +200,10 @@ class User {
 
 		try {
 			$response = $bdd->prepare("SELECT * FROM `posts` WHERE `user_id` = :user_id AND `id` = :id");
-			$response->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
-			$response->bindParam(':id', $post_id, \PDO::PARAM_STR);
-			$response->execute();
+			$response
+				->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
+				->bindParam(':id', $post_id, \PDO::PARAM_STR);
+				->execute();
 
 			return $response->fetch();
 		} catch(Exception $e) {
@@ -219,12 +216,14 @@ class User {
 
 		try {
 			$response = $bdd->prepare("SELECT * FROM `posts` WHERE `user_id` = :user_id");
-			$response->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
-			$response->execute();
+			$response
+				->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
+				->execute();
 
 			return $response->fetchAll();
+
 		} catch(Exception $e) {
-			die('error');
+			die('error ' . $e);
 		}
 
 		return $posts;
