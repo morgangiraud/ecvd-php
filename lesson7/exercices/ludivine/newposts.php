@@ -29,11 +29,10 @@
         <textarea name="body"></textarea>
     </div>
     <br />
-<h4> Upload file </h4>
+<h4> Add file </h4>
     <div>
     <input type="hidden" name="MAX_FILE_SIZE" value="100000">
       <input name="filedata" type="file" /><br />
-      <input type="submit" value="Send file" />
     </div>
     <br />
     <div class="button">

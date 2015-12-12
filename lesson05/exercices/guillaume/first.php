@@ -1,4 +1,7 @@
-<?php require_once('session.php'); ?>
+<?php 
+
+namespace Login;
+require_once('session.php'); ?>
 
 <!DOCTYPE HTML>
 
@@ -14,7 +17,9 @@
 		<?php
 
 			require_once('header.php');
-			require_once('functions.php');
+			use Ecvdphp\User as User;
+
+			// require_once('functions.php');
 
 			// Si l'utilisateur est déjà enregistré en session, on lui propose de se déconnecter
 			if(isset($_SESSION['username'])) {
@@ -29,7 +34,7 @@
 
 				if(!empty($_POST['name']) && !empty($_POST['password'])) {
 
-					$data = get_user($_POST['name']);
+					$data = User\getUser($_POST['name']);
 
 					// Pour chaque utilisateur, on check
 					if(isset($data[0])) {
