@@ -53,31 +53,18 @@
 
 <?php
 
-/*    echo trim($_POST["nom"]);
-    echo trim($_POST["mdp"]);
+/*    echo trim($_POST["pseudo"]);
+    echo trim($_POST["pseudo"]);
     echo trim($_POST["email"]);*/
 
         $file = file("users.txt");
-            if(isset($_POST['nom']) && empty($_POST['nom']) == false && isset($_POST['mdp']) && empty($_POST['mdp']) == false && isset($_POST['email']) && empty($_POST['email']) == false) {
-            /*$data = $_POST['nom'] . '.+.' . $_POST['mdp'] . '.+.' . $_POST['email'] . "\n";
-            var_dump($file);
-            foreach($file as $line) {
+            if(isset($_POST['pseudo']) && empty($_POST['pseudo']) == false && isset($_POST['password']) && empty($_POST['password']) == false && isset($_POST['email']) && empty($_POST['email']) == false) {
 
-                if($line == $data) {
-                    echo $data . " is in the users.txt";
-                    
-                    $_SESSION['login_user']=$_POST['nom'];
-                    $_SESSION['pwd_user']=$_POST['mdp'];
-
-                    header('Location: connect.php');
-                     exit;
-                }
-            }*/
 
         try{
         $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); 
-        $result = $conn->query('INSERT INTO users (username, password, email) VALUES ("'.($_POST["nom"]).'","'. md5($_POST["mdp"]) .'","'. ($_POST["email"]).'")');
+        $result = $conn->query('INSERT INTO users (username, password, email) VALUES ("'.($_POST["pseudo"]).'","'. md5($_POST["password"]) .'","'. ($_POST["email"]).'")');
         }   
         catch (\PDOException $e){
         echo $e->getMessage();
@@ -92,7 +79,7 @@
 
 <?php
 
-echo md5($_POST["mdp"]);
+echo md5($_POST["password"]);
 
 
 ?>
