@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Executing the script from the url
+# curl -s https://raw.githubusercontent.com/morgangiraud/ecvd-php/master/finaltest/installscript.sh | bash /dev/stdin name
+
 if [ -z "$1" ]; then
   echo "No argument supplied"
   exit 1
@@ -46,17 +50,20 @@ else
 fi
 echo "Resetting root password"
 number=$(ps aux | grep mysql | wc -l)
-if [ $number -gt 1 ]
-    then
-        mysql.server stop
+if [ $number -gt 1 ]; then
+  pidof mysql | xargs kill
+  mysql.server stop
 fi
-echo "update mysql.user set password=PASSWORD('r00t') where User='root'; FLUSH PRIVILEGES;" > ~/tmp/init.sql
+echo "update mysql.user set authentication_string=PASSWORD('r00t') where User='root'; FLUSH PRIVILEGES;" > ~/tmp/init.sql
 mysqld_safe --skip-grant-tables &
-sleep 2
 mysql -u root < ~/tmp/init.sql
 rm ~/tmp/init.sql
-mysql.server stop
-mysqld_safe &
+number=$(ps aux | grep mysql | wc -l)
+if [ $number -gt 1 ]; then
+  pidof mysql | xargs kill
+  mysql.server stop
+fi
+mysql.server start
 
 echo "Checking for PHP56"
 which -s php
@@ -66,9 +73,7 @@ else
     brew remove
     brew upgrade php56
 fi
-echo "Restarting php-fpm"
-pidof php-fpm | sudo xargs kill
-sudo php-fpm
+echo "Starting php as a server"
 php -S localhost:8000 &
 
 if [ -d ~/tmp/ecvd-php ]; then
