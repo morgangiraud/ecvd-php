@@ -23,22 +23,14 @@ else
     brew update
 fi
 echo "Installing missing utils"
-brew install automake colordiff curl git wget cask pidof
+brew install automake curl git wget cask pidof
 echo "Upgrading utils"
-brew upgrade automake colordiff curl git wget cask pidof
+brew upgrade automake curl git wget cask pidof
 
 echo "Checking for Sublime text"
 which -s subl
 if [[ $? != 0 ]] ; then  
   brew cask install sublime-text
-fi
-
-echo "Checking for Node"
-which -s node
-if [[ $? != 0 ]] ; then
-    brew install node
-else
-    brew upgrade node
 fi
 
 echo "Checking for MySQL"
@@ -84,10 +76,10 @@ echo "cloning distant repo"
 cd ~/tmp
 git clone https://github.com/morgangiraud/ecvd-php.git
 cd ecvd-php
-git checkout -b $1
+git checkout -b $1 && git push -u origin $1
 mkdir -p finaltest/$1
 cd finaltest/$1
-cp -R ../chat test.md .
+cp -R ../chat .
 subl .
 open -a Terminal .
-open -a "/Applications/Google Chrome.app" 'http://localhost:8000'
+open -a "/Applications/Google Chrome.app" 'http://localhost:8000' 'https://github.com/morgangiraud/ecvd-php/blob/master/finaltest/finaltest.md'
