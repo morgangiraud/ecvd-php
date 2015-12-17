@@ -1,14 +1,11 @@
 <div>
-  <form enctype="multipart/form-data" action="upload.php" method="post">
+  <form enctype="multipart/form-data" action="" method="post">
     <fieldset>
       <legend>Your personal information</legend>
       <p>
         <img width=120 src=""><br>
         <label for="filedata">Picture :</label>
         <input type="file" />
-        <br>
-        <label for="file-url">Picture URL :</label>
-        <input size="64" type="text" />
 
         <input type="submit" value="Send file" />
       </p>
