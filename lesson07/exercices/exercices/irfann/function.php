@@ -139,13 +139,12 @@
             $result->bindParam(":extension", $type, PDO::PARAM_STR);
             $result->execute();
             $conn->commit();
-            $lastId = $conn->lastInsertId();
+             
+			return $lastId;
 
 		}catch (Exception $e){
 			echo $e->getMessage();
 		}
-
-		return $lastId;
 	}
 
 	function editPost($title, $body, $image_id, $idPost){
