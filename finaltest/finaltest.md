@@ -49,7 +49,7 @@
   - require_once
 
 ## PHP - Handling users (8 pts)
-- Use the template `signup.php` to implement a signup form
+- Use the template `signin.php` to implement a signup form
   - Filter the user inputs
 - In `functions.php`, under the namespace `ECVChat/DB`, write a `register` function which takes as arguments (username, password, email) which throw an exception if an error happened and returns `null` otherwise
   - Write a secure query
