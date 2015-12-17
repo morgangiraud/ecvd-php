@@ -83,7 +83,7 @@ class User {
 
 		global $bdd;
 
-		$dir = 'upload/'.time().'_';
+		$dir = '../upload/'.time().'_';
 		$filename = $dir.$file['name'];
 		$result = '';
 
@@ -129,7 +129,6 @@ class User {
 		return $result;
 	}
 
-
 	public static function insertPost() {
 		global $bdd;
 
@@ -138,7 +137,7 @@ class User {
 
 		$getPicture = User::checkFile();
 
-		$picture = (!is_array($getPicture)) ? null : User::moveFile($picture, 'post');
+		$picture = (!is_array($getPicture)) ? null : User::moveFile($getPicture, 'post');
 		$date = date_format(date_create(), 'Y-m-d H:i:s');
 		$user = User::getUser();
 
@@ -156,7 +155,7 @@ class User {
 			$insert->bindParam(':created_at', $date, \PDO::PARAM_STR);
 			$insert->execute();
 
-			echo '<a href="blog.php?id='.$bdd->lastInsertId().'">Go see your post</a>';
+			echo '<a href="post.php?id='.$bdd->lastInsertId().'">Go see your post</a>';
 
 		} catch (Exception $e) {
 			die("Some error occured while the register process : ".$e);

@@ -33,6 +33,8 @@
 				<img src="<?=$picture['path']?><?=$picture['filename']?>" width="150" alt="">
 			<?php } ?>
 
+			<a href="edit.php?id=<?=$_GET['id']?>">Modifier ce post</a>
+
 		<?php 
 		}
 
