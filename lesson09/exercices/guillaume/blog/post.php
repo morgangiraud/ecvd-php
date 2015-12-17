@@ -9,19 +9,20 @@
 
 	require_once('../requires/functions.php');
 	use Ecvdphp\User;
+	use Ecvdphp\Post;
 
 	if(isset($_GET['id'])) {
 
 		$user = User::getUser();
-		$post = User::getPostById($user['id'], $_GET['id']);
+		$post = Post::getPostById($user['id'], $_GET['id']);
 
-		if(!$post) {
-			echo "Ce post n'existe pas";
+		if(isset($_POST) && isset($_POST['delete_post'])) {
+			Post::deletePost($_GET['id']);
+
+		} else if(!$post) {
+			echo "This post doesn't exist.";
 		} else { 
-
-			if($post['image_id'] !== null) {
-				$picture = User::getFileById($post['image_id']);
-			}
+			if($post['image_id'] !== null) $picture = User::getFileById($post['image_id']);
 
 		?>
 			<a href="index.php">Retour sur les posts</a>
@@ -33,13 +34,18 @@
 				<img src="<?=$picture['path']?><?=$picture['filename']?>" width="150" alt="">
 			<?php } ?>
 
-			<a href="edit.php?id=<?=$_GET['id']?>">Modifier ce post</a>
+			<a href="edit.php?id=<?=$_GET['id']?>">Edit this post</a>
+
+			<form action="post.php?id=<?=$_GET['id']?>" style="border:none;" method="post">
+				<input type="hidden" name="delete_post" />
+				<button>Delete this post</button>
+			</form>
 
 		<?php 
 		}
 
 	} else {
-		echo "Veuillez mettre un id de post dans l'url";
+		echo "Please put a post ID in the URL.";
 	}
 
 	require_once('../requires/footer.php');
