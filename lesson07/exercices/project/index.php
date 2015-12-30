@@ -14,7 +14,6 @@ if(isset($_SESSION['id'])){
 <br>
 <a href="logout.php">Logout</a>
 <?php
-  exit();
 } else if($_SERVER['REQUEST_METHOD'] === "POST"){
   if (empty($_POST['username']) || empty($_POST['password']) ) {
     ecvdphp\addFlashMessage('error', 'Something went wrong. You must fill all the fields');
@@ -36,7 +35,7 @@ if(isset($_SESSION['id'])){
     }
     ecvdphp\addFlashMessage('error', 'Something went wrong. You must fill all the fields');
   }
-}
+} else {
 ?>
   <div>
     
@@ -59,4 +58,24 @@ if(isset($_SESSION['id'])){
     <a href="signin.php">Sign in!</a>
   </div>
 <?php
+}
+  $page = 0;
+  $numberPerPage = 10;
+  if(isset($_GET['page']) && $_GET['page'] !== ''){
+    $page = intval($_GET['page']);
+  }
+  $posts = ecvdphp\DB\Post\getAllPostPaginated($page, $numberPerPage);
+
+  echo "<h1>Last posts</h1>";
+
+  foreach ($posts as $key => $post) {
+    ecvdphp\render('post/list.php', [
+      'post' => $post
+    ]);
+  }
+
+  for ($i=0; $i < $postCount; $i += $numberPerPage) { 
+    # code...
+  }
+
 include 'footer.php';

@@ -75,6 +75,15 @@ namespace ecvdphp {
     }
   }
 
+  function render($filename, $vars){
+    if(file_exists($filename)){
+      foreach ($vars as $key => $var) {
+        $$key = $var;
+      }
+      var_dump(__DIR__ . $filename);
+      include __DIR__ . $filename;
+    }
+  }
 }
 
 namespace ecvdphp\DB {
@@ -93,14 +102,38 @@ namespace ecvdphp\DB {
     $stmt->bindParam(2, $userId);
     $stmt->execute();
     $conn->commit();
-  }
 
-  return $imageId;
+    return $imageId;
+  }
 }
 
 namespace ecvdphp\DB\Post {
 
+  function getPostCount(){
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT count(1) FROM posts");
+    $result = $stmt->execute();
+
+    return $result->fetch();
+  }
+
+  function getAllPostPaginated($page=0, $numberPerPage=10){
+    global $conn;
+
+    $currentPage = $page * $numberPerPage;
+
+    $stmt = $conn->prepare("SELECT * FROM posts ORDER BY created_at LIMIT ?,?");
+    $stmt->bindParam(1, $currentPage, \PDO::PARAM_INT);
+    $stmt->bindParam(2, $numberPerPage, \PDO::PARAM_INT);
+    $result = $stmt->execute();
+
+    return $result->fetchAll();
+  }
+
   function getPostById($postId){
+    global $conn;
+
     $stmt = $conn->prepare("SELECT * FROM posts WHERE id=?");
     $stmt->bindParam(1, $postId);
     $result = $stmt->execute();
@@ -109,6 +142,8 @@ namespace ecvdphp\DB\Post {
   }
 
   function getPostsByUserId($userId){
+    global $conn;
+
     $stmt = $conn->prepare("SELECT * FROM posts WHERE user_id=?");
     $stmt->bindParam(1, $userId);
     $result = $stmt->execute();

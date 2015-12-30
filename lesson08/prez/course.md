@@ -420,8 +420,3 @@ Implement a better php view system
 - Create a layout.php file containing yout html Layout
 - Put all your views inside their own php file
 - Implement to load those views inside the layout from anywhere in your application
-
---
-## Templates
-Allow users to create post based on templates
-
