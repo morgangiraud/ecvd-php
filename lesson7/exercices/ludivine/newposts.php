@@ -2,18 +2,6 @@
 <html>
 <head>
 	<title>New posts page</title>
-
-	<style>
-
-	body {
-
-		font-family: "open sans", Arial;
-		background-color:lightgray;
-
-
-	}
-
-	</style>
 </head>
 
 <body>

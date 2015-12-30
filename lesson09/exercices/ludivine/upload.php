@@ -41,37 +41,5 @@ while ($file = readdir($filehandle)) {
 
 closedir($filehandle); 
 
-/*$params = ['http' => [
-  'method' => 'POST',
-  'content' => 'var1=val1'
-]];
-$ctx = stream_context_create($params);
-$fp = fopen('http://www.google.fr', 'rb', false, $ctx);
-
-if (isset($_POST["txt"]) && (isset($_FILES["filedata"]))) {
-
-	echo $fp;
-}*/
-
 require('connect_db.php');
-
-
-/*	    try {
-
-	    	$result = $conn->prepare('insert into files values (null, :filename, :path, :extension)');
-	    	$result->bindParam(':filename', $nomFichier[0], PDO::PARAM_STR);
-            $result->bindParam(':path', $uploaddir, PDO::PARAM_STR);
-            $result->bindParam(':extension', $extension, PDO::PARAM_STR);
-			$result->execute();
-            var_dump($result);
-
-            $update = $result->lastInsertId();
-            $update = $conn->prepare('select * from users left join files on image.id = users.image_id;');
-
-	    }
-
-	    catch (\PDOException $e) {
-            echo $e->getMessage();
-         }*/
-
 ?>

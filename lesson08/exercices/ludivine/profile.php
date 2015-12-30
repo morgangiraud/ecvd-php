@@ -16,5 +16,3 @@ require('session.php');
     </div>
     <input type="submit" value="envoyer" />
 </form>
-
-<h1> All posts </h1>

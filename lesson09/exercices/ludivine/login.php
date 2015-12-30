@@ -40,4 +40,10 @@ require('connect_db.php');
         
 ?>
 
+<?php
+
+echo md5($_POST["mdp"]);
+
+
+?>
 
