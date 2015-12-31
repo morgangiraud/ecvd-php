@@ -11,29 +11,16 @@
 
 
 	if(isset($_POST['create_post'])) {
-		if(empty($_POST['title']) || empty($_POST['body']) ){
-			echo('Champ non rempli');
-		}else{
-			$post_id = Blog\createPost($_POST['title'], $_POST['body'], $id);
-
-			if(isset($_FILES['file'])) {
-
-				list($name, $extension) = User\uploadFile($_FILES['file']['name'], $_FILES['file']['tmp_name']);
-
-				$path = 'upload/';
-				$image_id = Blog\updatePostImage($post_id, $name, $path, $extension);
-			}
-
-			User\redirect('blog.php');
-		}
+		Blog\createPost($_POST['title'], $_POST['body'], $id);
+		User\redirect('blog.php');
 	}
-		
+
 	include('header.php');
 ?>
 	<h1>Create a post</h1>
 	<h2>Hello <?php echo $_SESSION['name']; ?> !</h2>
 
-	<form method="post" action="" enctype="multipart/form-data">
+	<form method="post" action="">
 		<label>Tilte</label>
 		<input type='text' name='title' id='title'/>
 		<br>
@@ -41,7 +28,7 @@
 		<textarea name="body" rows="5" cols="15"></textarea>
 		<br>
 		<label>Image</label>
-		<input type='file' name='file'>
+		<input type='file' name='image' id='image' />
 		<br>
 		<input type='hidden' name='id' value="<?php echo $id;?>">
 		<input type="hidden" name="create_post" />

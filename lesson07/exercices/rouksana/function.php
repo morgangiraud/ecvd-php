@@ -1,16 +1,15 @@
 <?php
 
-namespace Php;
+namespace User{
+	include('connect.php');
 
-class Helper {
-
-	public static function redirect($dest){
+	function redirect($dest){
 	  header('Location: '.$dest);
 	  exit(); 
 	}
 
-	public static function insert($name, $password, $email) {
-		require_once('connect.php');
+	function insert($name, $password, $email) {
+		global $conn;
 
 		$name = filter_var($name, FILTER_SANITIZE_STRING);
         $password = filter_var($password, FILTER_SANITIZE_STRING);
@@ -27,9 +26,25 @@ class Helper {
 		}
 	
 	}
+	
+	function login($username, $password){
+		global $conn;
 
-	public static function getUser($name) {
-		require_once('connect.php');
+		$stmt = $conn->prepare('SELECT * FROM users WHERE username = ?');
+		$stmt->bindParam(1, $username, \PDO::PARAM_STR);
+		$stmt->execute();
+		if($stmt->execute()){
+			$user = $stmt->fetchAll();
+			if(count($user) === 1 && password_verify($password, $user[0]['password'])) {
+				$user = $user[0];
+			}
+		}
+
+		return $user;
+	}
+
+	function getUser($name) {
+		global $conn;
 
 		$stmt = $conn->prepare('SELECT * FROM users WHERE username = :username');
 		$stmt->bindParam(':username', $name, \PDO::PARAM_STR);
@@ -39,24 +54,140 @@ class Helper {
 		return $user;
 	}
 
-	public static function getAllUsers($name, $password){
-		require_once('connect.php');
+	function delete($name) {
+		global $conn;
 
-		$stmt = $conn->prepare('SELECT username, password FROM users WHERE username = :username AND password = :password');
-		$stmt->bindParam(':username', $name, \PDO::PARAM_STR);
-		$stmt->bindParam(':password', $password, \PDO::PARAM_STR);
-		$stmt->execute();
-		$users = $stmt->fetchAll();
+		$name = filter_var($name, FILTER_SANITIZE_STRING);
 
-		return $users;
+		try {
+			$stmt = $conn->prepare('DELETE FROM users WHERE username = :username');
+			$stmt->bindParam(':username', $name, \PDO::PARAM_STR);
+			$stmt->execute();
+		} catch (Exception $e) {
+			die('Erreur : ' . $e->getMessage());
+		}
+	
+	}
+	
+	function edit($name, $email, $password) {
+		global $conn;
+
+		$name = filter_var($name, FILTER_SANITIZE_STRING);
+		$email = filter_var($email, FILTER_SANITIZE_STRING);
+        $password = password_hash(filter_var($password, FILTER_SANITIZE_STRING),PASSWORD_BCRYPT);
+
+		try {
+			$stmt = $conn->prepare('UPDATE users SET email = :email, password = :password WHERE username = :username');
+			$stmt->bindParam(':username', $name, \PDO::PARAM_STR);
+			$stmt->bindParam(':email', $email, \PDO::PARAM_STR);
+			$stmt->bindParam(':password', $password, \PDO::PARAM_STR);
+			$stmt->execute();
+		} catch (Exception $e) {
+			die('Erreur : ' . $e->getMessage());
+		}
+	
 	}
 
-	public static function urlExists($url) {
+	function uploadFile($filename, $tmp){
+
+		$upload = basename($filename);
+		$folder = 'upload/' . $upload;
+
+		list($name, $extension) = explode(".", $upload);
+
+			if(move_uploaded_file($tmp, $folder)){
+				return [$name, $extension];
+			}
+	
+	}
+
+	function downloadFile($url){
+		$upload = basename($url);
+		$folder = 'upload/' . $upload;
+
+		list($name, $extension) = explode(".", $upload);
+
+		$content = file_get_contents($url);
+
+		if($content){
+			file_put_contents($folder, $content);
+			return [$name, $extension];
+		}
+	}
+
+
+	function updateUserImage($user, $filename, $path, $extension){
+		global $conn;
+
+		$conn->beginTransaction();
+
+		$insert = $conn->prepare("INSERT INTO files (filename, path, extension) VALUES (:filename, :path, :extension)");
+		$insert->bindParam(':filename', $filename, \PDO::PARAM_STR);
+		$insert->bindParam(':path', $path, \PDO::PARAM_STR);
+		$insert->bindParam(':extension', $extension, \PDO::PARAM_STR);
+		$insert->execute();
+		$imageId = $conn->lastInsertId();  
+
+		$update = $conn->prepare("UPDATE users SET image_id = :id WHERE username = :username");
+		$update->bindParam(':id', $imageId, \PDO::PARAM_STR);
+		$update->bindParam(':username', $user, \PDO::PARAM_STR);
+		$update->execute();
+
+		$conn->commit();
+
+		return $imageId;
+	}
+
+	function urlExists($url) {
 	    $headers = get_headers($url);
 		if(strpos($headers[0],'200')){
 			return true;
 		}else{
 			return false;
+		}
+	}
+
+	function getAvatar($id) {
+		global $conn;
+
+		$stmt = $conn->prepare('SELECT * FROM users LEFT JOIN files ON files.id = users.image_id WHERE users.id = :id');
+		$stmt->bindParam(':id', $id, \PDO::PARAM_STR);
+		$stmt->execute();
+		$data = $stmt->fetch();
+
+		$avatar = $data['path'].$data['filename'].'.'.$data['extension'];
+
+		return $avatar;   
+	}
+}
+
+namespace Blog{
+	include('connect.php');
+
+	function getAllPosts() {
+		global $conn;
+
+		$stmt = $conn->prepare('SELECT * FROM posts LEFT JOIN files ON files.id = posts.image_id LEFT JOIN users ON users.id = posts.user_id');
+		$stmt->execute();
+		$posts = $stmt->fetchAll();
+
+		return $posts;
+	}
+
+	function createPost($title, $body, $id) {
+		global $conn;
+
+        $body = filter_var($body, FILTER_SANITIZE_STRING);
+	    $title = filter_var($title, FILTER_SANITIZE_STRING);
+
+		try {
+			$stmt = $conn->prepare('INSERT INTO posts (title, body, user_id) VALUES (:title, :body, :id)');
+			$stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+			$stmt->bindParam(':body', $body, \PDO::PARAM_STR);
+			$stmt->bindParam(':id', $id, \PDO::PARAM_STR);
+			$stmt->execute();
+		} catch (Exception $e) {
+			die('Erreur : ' . $e->getMessage());
 		}
 	}
 

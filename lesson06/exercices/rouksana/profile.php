@@ -1,69 +1,48 @@
 <?php
 	require_once ('session.php');
 	require_once('function.php');
-	use Php\Helper;
 
-	$name = $_SESSION['name'];
-
-	if(!isset($name)){
-		Helper::redirect('index.php');
+	if(!isset($_SESSION['name'])){
+		Php\redirect('index.php');
 	}
 
-	$user = Helper::getUser($name);
-
-    $password = filter_var($user['password'], FILTER_SANITIZE_STRING);
-    $email = filter_var($user['email'], FILTER_SANITIZE_STRING);
+	$user = Php\getUser($_SESSION['name']);
 
 	if(isset($_POST['delete'])) {
-		include('connect.php');
-		$stmt = $conn->prepare('DELETE FROM users WHERE username = :username');
-		$stmt->bindParam(':username', $name, PDO::PARAM_STR);
-		$stmt->execute();
-
+		Php\delete($_SESSION['name']);
 		session_destroy();
-		Helper::redirect('index.php');
+		Php\redirect('index.php');
 	}
 
 	if(isset($_POST['edit'])) {
-		include('connect.php');
-	    $newpassword = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-	    $newemail = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-
-		$stmt = $conn->prepare('UPDATE users SET email = :email, password = :password WHERE username = :username');
-		$stmt->bindParam(':username', $name, PDO::PARAM_STR);
-		$stmt->bindParam(':email', $newemail, PDO::PARAM_STR);
-		$stmt->bindParam(':password', $newpassword, PDO::PARAM_STR);
-		$stmt->execute();
-
+	    Php\edit($_SESSION['name'], $_POST['email'], $_POST['password']);
 		echo ('Profil modifié');
 	}
 
 	if(isset($_FILES['file'])) { 
-		include('connect.php');
-		$folder = 'upload/';
-		$file = basename($_FILES['file']['name']);
-		if(move_uploaded_file($_FILES['file']['tmp_name'], $folder . $file)) {
-		  echo 'Upload';
-		} else {
-		  echo 'Echec';
-		}
-		
-		$insert = $conn->prepare("INSERT INTO files (id, filename, path, extension) VALUES ('', :filename, :path, :extension)");
-		$insert->bindParam(':filename', $_FILES['file']['name'], PDO::PARAM_STR);
-		$insert->bindParam(':path', $folder, PDO::PARAM_STR);
-		$insert->bindParam(':extension', $_FILES['file']['type'], PDO::PARAM_STR);
-		$insert->execute(); 
 
-		$update = $conn->prepare("UPDATE users SET image_id= :id WHERE username = :username");
-		$update->bindParam(':id', $conn->lastInsertId(), PDO::PARAM_STR);
-		$update->bindParam(':username', $name, PDO::PARAM_STR);
-		$update->execute();
-	}
+		list($name, $extension) = Php\uploadFile($_FILES['file']['name'], $_FILES['file']['tmp_name']);
+
+		$path = 'upload/';
+		$imageId = Php\updateUserImage($_SESSION['name'], $name, $path, $extension);
+		$avatar = $path . $name . "." . $extension;
+
+		if(isset($avatar)){ 
+			echo ('File Upload');
+		}else{
+			echo ('No file uploaded');
+		}
+	}	
 
 	include('header.php');
 ?>
 	<h1>Profile</h1>
-	<h2>Hello <?php echo $name; ?> !</h2>
+	<h2>Hello <?php echo $_SESSION['name']; ?> !</h2>
+<?php 
+        if($avatar != null){
+          echo '<img src="' . $avatar . '"><br>';
+        }
+?>
 	<a href="logout.php">Logout</a>
 
 	<h3>Delete</h3>

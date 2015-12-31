@@ -24,14 +24,13 @@
 				$image_id = Blog\updatePostImage($post_id, $name, $path, $extension);
 			}
 
-			User\redirect('blog.php');
+			User\redirect('show.php?post='.$post_id);
 		}
 	}
 		
 	include('header.php');
 ?>
 	<h1>Create a post</h1>
-	<h2>Hello <?php echo $_SESSION['name']; ?> !</h2>
 
 	<form method="post" action="" enctype="multipart/form-data">
 		<label>Tilte</label>

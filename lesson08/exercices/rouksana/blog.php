@@ -2,37 +2,24 @@
 	require_once ('session.php');
 	require_once('function.php');
 
-	if($_SERVER['REQUEST_METHOD'] === "POST"){
-		if(empty($_POST['name']) || empty($_POST['password']) ){
-			echo('Champ non rempli');
-		}else{
-			User\insert($_POST['name'], $_POST['password'], $_POST['email']);
-		}	
+	if(!isset($_SESSION['name'])){
+		User\redirect('index.php');
 	}
+
+	$user = User\getUser($_SESSION['name']);
+
 	$posts = Blog\getAllPosts();
+
 	include('header.php');
 ?>
-	<h1>Register</h1>
+	<h1>Blog</h1>
+	<h2>Hello <?php echo $_SESSION['name']; ?> !</h2>
 
-	<form method="post" action="">
-		<label>Nom</label>
-		<input name='name' type='text' id='name'/>
-		<br>
-		<label>E-mail</label>
-		<input type='email' name='email' id='email' />
-		<br>
-		<label>Mot de passe</label>
-		<input type='password' name='password' id='password' />
-		<br>
-		<input type='submit' value='Register' />
-	</form>
-	<br>
-	<a href="login.php">Login</a>
-	<br>
+	<a href="post.php">Create a post</a>
 
 	<?php if($posts != null):?>
 
-		<h2>Liste des posts</h2>
+		<h3>Liste des posts</h3>
 
 			<table border="1" width="500px">
 				<tr style="font-weight:bold;">
@@ -52,4 +39,5 @@
 			</table>
 
 	<?php endif;?>
+	
 <?php include('footer.php');?>

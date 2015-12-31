@@ -167,7 +167,7 @@ namespace Blog{
 	function getAllPosts() {
 		global $conn;
 
-		$stmt = $conn->prepare('SELECT posts.id as id, posts.title as title, posts.user_id as user_id, posts.created_at as date, users.username as name FROM posts LEFT JOIN files ON files.id = posts.image_id LEFT JOIN users ON users.id = posts.user_id ORDER BY created_at');
+		$stmt = $conn->prepare('SELECT posts.id as id, posts.title as title, posts.body as body, posts.image_id as image_id, posts.created_at as date, posts.user_id as user_id,  users.username as name, files.filename as filename, files.path as path, files.extension as extension FROM posts LEFT JOIN files ON files.id = posts.image_id LEFT JOIN users ON users.id = posts.user_id ORDER BY created_at');
 		$stmt->execute();
 		$posts = $stmt->fetchAll();
 

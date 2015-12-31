@@ -2,100 +2,60 @@
 	require_once ('session.php');
 	require_once('function.php');
 
-	$name = $_SESSION['name'];
-	$user = User\getUser($name);
-	
-	if(!isset($name)){
+	if(!isset($_SESSION['name'])){
 		User\redirect('index.php');
 	}
 
+	$user = User\getUser($_SESSION['name']);
+
 	if(isset($_POST['delete'])) {
-		User\delete($name);
+		User\delete($_SESSION['name']);
 		session_destroy();
 		User\redirect('index.php');
 	}
 
-	if(isset($_POST['email']) && isset($_POST['password']) ){
-		User\edit($name, $_POST['password'], $_POST['email']);
+	if(isset($_POST['edit'])) {
+	    User\edit($_SESSION['name'], $_POST['email'], $_POST['password']);
 		echo ('Profil modifié');
-	}else{
-		echo('Champ non rempli');
 	}
 
-	$folder = 'upload/';
-	function addFile($filename, $extension){
-		include('connect.php');
-		try{
-	 		$conn->beginTransaction();
+	if(isset($_FILES['file']) || isset($_POST['url'])) {
 
-			$insert = $conn->prepare("INSERT INTO files VALUES ('', :filename, :path, :extension)");
-			$insert->bindParam(':filename', $filename, PDO::PARAM_STR);
-			$insert->bindParam(':path', $folder, PDO::PARAM_STR);
-			$insert->bindParam(':extension', $extension, PDO::PARAM_STR);
-			$insert->execute();
-
-			$update = $conn->prepare("UPDATE users SET image_id = :id WHERE username = :username");
-			$update->bindParam(':id', $conn->lastInsertId(), PDO::PARAM_STR);
-			$update->bindParam(':username', $name, PDO::PARAM_STR);
-			$update->execute();
-
-			$conn->commit();
-			echo 'Upload';
-	 	} catch (Exception $e) {
-			die('Erreur : ' . $e->getMessage());
-		}
-	}
-
-	if(isset($_FILES['file']) || isset($_POST['url'])) { 
-
-		if($_POST['url']){
-			$filename = end(explode('/', $_POST['url']));
+		if($_POST['url'] && User\urlExists($_POST['url'])){
+			list($name, $extension) = User\downloadFile($_POST['url']);
 		}else{
-			$filename = basename($_FILES['file']['name']);
+			list($name, $extension) = User\uploadFile($_FILES['file']['name'], $_FILES['file']['tmp_name']);
 		}
 
-		if(move_uploaded_file($_FILES['file']['tmp_name'], $folder . $filename)) {
-			addFile($_FILES['file']['name'], $_FILES['file']['type']);
-		} 
-		elseif(Blog\urlExists($_POST['url'])){
-			$url = $_POST['url'];
-			$type = 'image/jpeg';
-			file_put_contents($folder.$filename, file_get_contents($url));
-			addFile($filename, $type);
-		}
-		else {
-			echo 'Echec';
+		$path = 'upload/';
+		$imageId = User\updateUserImage($_SESSION['name'], $name, $path, $extension);
+		$avatar = $path . $name . "." . $extension;
+
+		if(isset($avatar)){ 
+			echo ('File Upload');
+		}else{
+			echo ('No file uploaded');
 		}
 	}
 
-	if($name){
-		include('connect.php');
-		$stmt = $conn->prepare('SELECT * FROM users LEFT JOIN files ON files.id = users.image_id WHERE users.id = :id');
-		$stmt->bindParam(':id', $user['id'], PDO::PARAM_STR);
-		$stmt->execute();
-		$data = $stmt->fetch();
-
-		$dir = $data['path'].$data['filename'];
-		
-	}else{
-		User\redirect('index.php');
+	if($_SESSION['name']){
+		$avatar = User\getAvatar($user['id']);
 	}
 
 	include('header.php');
 ?>
 	<h1>Profile</h1>
-	<h2>Hello <?php echo $name; ?> !</h2>
-
-	<a href="post.php">BLOG</a>
+	<h2>Hello <?php echo $_SESSION['name']; ?> !</h2>
+<?php 
+        if($avatar != null){
+          echo '<img src="' . $avatar . '"><br>';
+        }
+?>
+	<br>
+	<a href="blog.php">BLOG</a>
 	<br>
 	<a href="logout.php">Logout</a>
-	<br>
-	<br>
-	<?php if($dir):?>
-		<img src="<?php echo $dir;?>" alt="image">
-	<?php endif;?>
-	<br>
-	
+
 	<h3>Delete</h3>
 	<form method="post" action="">
 		<input type="hidden" name="delete" />
@@ -110,6 +70,7 @@
 		<label>Mot de passe</label>
 		<input type='password' name='password' id='password' />
 		<br>
+		<input type="hidden" name="edit" />
 		<input type='submit' value='Edit' />
 	</form>
 
