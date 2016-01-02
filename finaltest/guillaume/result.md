@@ -28,14 +28,15 @@ Good
 ----
 ## PHP - The chat room (4 pts)
 
+- The natural chat order is `ascendant` and not `descendant`
 - You forgot to add the filename extension in the image source
 - You could have formatted the `created_at` value
 
-**Total: 3,5 pts**
+**Total: 3 pts**
 
 ----
 # Your grade
-**18 pts**
+**17,5 pts**
 
 Very good job!
 
