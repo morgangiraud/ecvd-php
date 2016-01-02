@@ -2,7 +2,7 @@
 
 ## MySQL - Command line (4 pts)
 
-You can write `... id int NOT NULL AUTO_INCREMENT PRIMARY KEY, ...` instead of `... id int NOT NULL AUTO_INCREMENT,  PRIMARY KEY (id), ...`
+- You can write `... id int NOT NULL AUTO_INCREMENT PRIMARY KEY, ...` instead of `... id int NOT NULL AUTO_INCREMENT,  PRIMARY KEY (id), ...`
 
 **Total: 4 pts**
 
