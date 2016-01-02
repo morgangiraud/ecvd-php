@@ -5,7 +5,7 @@
 		if(empty($_POST['name']) || empty($_POST['password']) ){
 			echo('Champ non rempli');
 		}else{
-			Php\insert($_POST['name'], $_POST['password'], $_POST['email']);
+			User\insert($_POST['name'], $_POST['password'], $_POST['email']);
 		}	
 	}
 	include('header.php');

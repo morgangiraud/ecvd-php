@@ -3,7 +3,8 @@
 	require_once('function.php');
 	
 	if(isset($_SESSION['name'])){
-		echo ('Deja connecte <br> <a href="logout.php">Logout</a>');
+		echo ('Deja connecte <br> <a href="logout.php">Logout</a>
+			<br> <a href="profile.php">Profile</a>');
 	}
 	include('header.php');
 ?>
@@ -24,7 +25,7 @@
 	$name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
-	$user = Php\login($name, $password);
+	$user = User\login($name, $password);
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(empty($_POST['name']) || empty($_POST['password']) ){
 			echo('Champ non rempli');
