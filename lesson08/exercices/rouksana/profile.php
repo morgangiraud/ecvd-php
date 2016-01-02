@@ -3,28 +3,32 @@
 	require_once('function.php');
 
 	if(!isset($_SESSION['name'])){
-		Php\redirect('index.php');
+		User\redirect('index.php');
 	}
 
-	$user = Php\getUser($_SESSION['name']);
+	$user = User\getUser($_SESSION['name']);
 
 	if(isset($_POST['delete'])) {
-		Php\delete($_SESSION['name']);
+		User\delete($_SESSION['name']);
 		session_destroy();
-		Php\redirect('index.php');
+		User\redirect('index.php');
 	}
 
 	if(isset($_POST['edit'])) {
-	    Php\edit($_SESSION['name'], $_POST['email'], $_POST['password']);
+	    User\edit($_SESSION['name'], $_POST['email'], $_POST['password']);
 		echo ('Profil modifié');
 	}
 
-	if(isset($_FILES['file'])) { 
+	if(isset($_FILES['file']) || isset($_POST['url'])) {
 
-		list($name, $extension) = Php\uploadFile($_FILES['file']['name'], $_FILES['file']['tmp_name']);
+		if($_POST['url'] && User\urlExists($_POST['url'])){
+			list($name, $extension) = User\downloadFile($_POST['url']);
+		}else{
+			list($name, $extension) = User\uploadFile($_FILES['file']['name'], $_FILES['file']['tmp_name']);
+		}
 
 		$path = 'upload/';
-		$imageId = Php\updateUserImage($_SESSION['name'], $name, $path, $extension);
+		$imageId = User\updateUserImage($_SESSION['name'], $name, $path, $extension);
 		$avatar = $path . $name . "." . $extension;
 
 		if(isset($avatar)){ 
@@ -32,7 +36,11 @@
 		}else{
 			echo ('No file uploaded');
 		}
-	}	
+	}
+
+	if($_SESSION['name']){
+		$avatar = User\getAvatar($user['id']);
+	}
 
 	include('header.php');
 ?>
@@ -43,6 +51,9 @@
           echo '<img src="' . $avatar . '"><br>';
         }
 ?>
+	<br>
+	<a href="blog.php">BLOG</a>
+	<br>
 	<a href="logout.php">Logout</a>
 
 	<h3>Delete</h3>
@@ -67,6 +78,9 @@
 	<form method="post" action="" enctype="multipart/form-data">
 		<label>Fichier</label>
 		<input type="file" name="file">
+		<br>
+		<label>Url</label>
+		<input type="text" name="url">
 		<br>
     	<input type="submit" value="Add file">
 	</form>

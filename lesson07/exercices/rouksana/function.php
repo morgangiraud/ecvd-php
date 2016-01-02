@@ -1,6 +1,6 @@
 <?php
 
-namespace Php{
+namespace User{
 	include('connect.php');
 
 	function redirect($dest){
@@ -12,7 +12,7 @@ namespace Php{
 		global $conn;
 
 		$name = filter_var($name, FILTER_SANITIZE_STRING);
-        $password = password_hash(filter_var($password, FILTER_SANITIZE_STRING),PASSWORD_BCRYPT);
+        $password = filter_var($password, FILTER_SANITIZE_STRING);
         $email = filter_var($email, FILTER_SANITIZE_STRING);
 
 		try {
@@ -26,7 +26,7 @@ namespace Php{
 		}
 	
 	}
-
+	
 	function login($username, $password){
 		global $conn;
 
@@ -101,6 +101,21 @@ namespace Php{
 	
 	}
 
+	function downloadFile($url){
+		$upload = basename($url);
+		$folder = 'upload/' . $upload;
+
+		list($name, $extension) = explode(".", $upload);
+
+		$content = file_get_contents($url);
+
+		if($content){
+			file_put_contents($folder, $content);
+			return [$name, $extension];
+		}
+	}
+
+
 	function updateUserImage($user, $filename, $path, $extension){
 		global $conn;
 
@@ -121,6 +136,59 @@ namespace Php{
 		$conn->commit();
 
 		return $imageId;
+	}
+
+	function urlExists($url) {
+	    $headers = get_headers($url);
+		if(strpos($headers[0],'200')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function getAvatar($id) {
+		global $conn;
+
+		$stmt = $conn->prepare('SELECT * FROM users LEFT JOIN files ON files.id = users.image_id WHERE users.id = :id');
+		$stmt->bindParam(':id', $id, \PDO::PARAM_STR);
+		$stmt->execute();
+		$data = $stmt->fetch();
+
+		$avatar = $data['path'].$data['filename'].'.'.$data['extension'];
+
+		return $avatar;   
+	}
+}
+
+namespace Blog{
+	include('connect.php');
+
+	function getAllPosts() {
+		global $conn;
+
+		$stmt = $conn->prepare('SELECT * FROM posts LEFT JOIN files ON files.id = posts.image_id LEFT JOIN users ON users.id = posts.user_id');
+		$stmt->execute();
+		$posts = $stmt->fetchAll();
+
+		return $posts;
+	}
+
+	function createPost($title, $body, $id) {
+		global $conn;
+
+        $body = filter_var($body, FILTER_SANITIZE_STRING);
+	    $title = filter_var($title, FILTER_SANITIZE_STRING);
+
+		try {
+			$stmt = $conn->prepare('INSERT INTO posts (title, body, user_id) VALUES (:title, :body, :id)');
+			$stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+			$stmt->bindParam(':body', $body, \PDO::PARAM_STR);
+			$stmt->bindParam(':id', $id, \PDO::PARAM_STR);
+			$stmt->execute();
+		} catch (Exception $e) {
+			die('Erreur : ' . $e->getMessage());
+		}
 	}
 
 }

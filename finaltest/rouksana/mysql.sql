@@ -1,0 +1,28 @@
+CREATE DATABASE ecvchat;
+
+USE ecvchat;
+
+CREATE TABLE users (
+	id INT NOT NULL AUTO_INCREMENT,
+	email VARCHAR(255),
+	username VARCHAR(255),
+ 	password VARCHAR(255),
+ 	photo_id INT,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE files (
+	id INT NOT NULL AUTO_INCREMENT,
+	filename VARCHAR(255),
+	path VARCHAR(255),
+ 	extension VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE messages (
+	id INT NOT NULL AUTO_INCREMENT,
+	message VARCHAR(255),
+	created_at DATETIME NOT NULL DEFAULT NOW(),
+ 	user_id INT,
+	PRIMARY KEY (ID)
+);
