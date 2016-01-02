@@ -34,13 +34,12 @@
     - username: `root`
     - password: `r00t`
   - Use the $conn keyword for the connection variable
-  - Set attribute ERR_MODE
-  - Set attribute ERRMODE_EXCEPTION
+  - Set attribute ERR_MODE with value ERRMODE_EXCEPTION
 - Create a `functions.php` file and containing those 2 namespaces
   - `ECVChat`
   - `ECVChat\DB`
 - In `functions.php`, under the namespace `ECVChat`
-  - Write a `redirect` function which takes as arguments (route) and redirect the user **properly** to Inputthe new route
+  - Write a `redirect` function which takes as arguments (route) and redirect the user **properly** to the new route
   - Write a `sanitizeString` function which takes as arguments (string) and return the sanitized string (The input is coming from a form, you need to check its type, clean it and filter it).
 - Along the whole exercice, use with caution the four following statement
   - include
@@ -77,7 +76,7 @@
 - Use the template `profile.php` to implement a profile form  
 - create an `uploads` folder
 - In `functions.php`, under the namespace `ECVChat`
-  - Write a `checkUpload` function which takes as arguments (fieldname) and return true if the file is correct, false otherwise
+  - Write a `checkUpload` function which takes as arguments (fieldName) and return true if the file is correct, false otherwise
     - Check that no errors has happened while uploading
     - Check that the file is not of size 0
     - Check that the extension is a png or jpeg/jpg file
@@ -85,14 +84,13 @@
   - Write a `uploadFile` function which takes as arguments ($filename) and copy the temprorary file in a secure folder
     - Throw an exception if an error happened
     - If it succeed returns two value: `filename` and `extension`
-    - Check that you update the link between the file and the user in the database
 - In `functions.php`, under the namespace `ECVChat\DB`
   - Write a `updateUserImage` function which takes as arguments (userId, filename, path, extension) and return the imageId if it succeeds
     - Throw an exception is an error happen
     - Use a transaction
     - Use prepare statements
 - Update the user session with the photo_url
-  - Update your code on hthe login part to join the image table
+  - Update your code on the login part to join the image table
   - add the `photo_url` field in the session only if it exists
   - Display it in the profile page
 
@@ -101,7 +99,7 @@
 - Use the template `chat.php` to implement a chat form  
 - In `functions.php`, under the namespace `ECVChat\DB`
   - Write a `addMessage` function which takes as arguments (message) and throw an exception if an error happened, returns `null` otherwise
-  - Write a `getLastMessage` function which takes no arguments and retunrs the last 10 messages of the chat room 
+  - Write a `getLastMessages` function which takes no arguments and returns the last 10 messages of the chat room 
     - display the messages using the template `message.php`
 
 # Conclusion (Mandatory)
