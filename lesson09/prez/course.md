@@ -7,9 +7,9 @@
 
 ---
 ## Arrays
-PHP arrays are flexible: they 
-- have numeric auto-incremented keys 
-- can have alphanumeric keys of arbitrary length. 
+PHP arrays are flexible: they allow 
+- numeric auto-incremented keys 
+- alphanumeric keys of arbitrary length. 
 - can store any value, including other arrays. 
 
 All arrays are ordered collections of value identified by a key that is unique to the array it belongs to. 
