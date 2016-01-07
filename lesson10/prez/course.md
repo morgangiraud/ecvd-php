@@ -200,7 +200,7 @@ PHP allows you to do that thanks to the [sprintf](http://php.net/manual/en/funct
   printf("%d", $n); // → 123
   printf("%d", $f); // → 123
   printf("The string is %s", $s); // → The string is A string
-  printf("%3.3f", $f); // → 450
+  printf("%3.3f", $f); // → 123.450
 ?>
 ```
  
