@@ -5,7 +5,7 @@ require_once 'connect.php';
 
 $message = "";
 if(isset($_SESSION['id'])){
-  header('Location:login.php', true, 301);
+  header('Location:index.php', true, 301);
   exit();
 } else if($_SERVER['REQUEST_METHOD'] === "POST"){
   if (empty($_POST['pseudo']) || empty($_POST['password']) ) {
@@ -20,7 +20,7 @@ if(isset($_SESSION['id'])){
     $stmt->bindParam(2, trim($email));
     $stmt->bindParam(3, password_hash($password, PASSWORD_BCRYPT));
     if($stmt->execute()){
-      header('Location:login.php', true, 301);
+      header('Location:index.php', true, 301);
       exit();
     } else {
       $message = '<p>Something went wrong. Username or password is wrong</p>';

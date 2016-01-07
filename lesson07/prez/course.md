@@ -201,4 +201,4 @@ A post can contain a title, a body and an image. It is linked to an author and i
 ## Project: Refactor the homepage
 - List posts ordered by date
 - Create a pagination
-- Display the author information
+- Display the author information on each listed post

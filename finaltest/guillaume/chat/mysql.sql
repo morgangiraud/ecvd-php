@@ -1,0 +1,25 @@
+CREATE DATABASE IF NOT EXISTS ecvchat;
+
+use ecvchat;
+
+CREATE TABLE IF NOT EXISTS users(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+	email VARCHAR(255), 
+	username VARCHAR(255), 
+	password VARCHAR(255), 
+	photo_id INT
+);
+
+CREATE TABLE IF NOT EXISTS files(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+	filename VARCHAR(255), 
+	path VARCHAR(255), 
+	extension VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS messages(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+	message VARCHAR(255), 
+	created_at DATETIME, 
+	user_id INT
+);

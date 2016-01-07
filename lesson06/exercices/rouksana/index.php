@@ -1,12 +1,11 @@
 <?php
 	require_once('function.php');
-	use Php\Helper;
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(empty($_POST['name']) || empty($_POST['password']) ){
 			echo('Champ non rempli');
 		}else{
-			Helper::insert($_POST['name'], $_POST['password'], $_POST['email']);
+			Php\insert($_POST['name'], $_POST['password'], $_POST['email']);
 		}	
 	}
 	include('header.php');

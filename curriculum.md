@@ -21,16 +21,17 @@
 | References | **8** |
 | Returns | **8** |
 | Variable Scope | **8** |
-| Anonymous Functions, closures | **8** |
+| Anonymous Functions | **8** |
+| Closures | **8** |
+| Callbacks and Callable type | **8** |
 
 ### Arrays
 | Topic | Lesson |
 |---------|:--------:|
-| Associative Arrays | **9** |
+| Arrays | **9** |
 | Array Iteration | **9** |
 | Array Functions | **9** |
-| SPL, Objects as arrays  | **9** |
-| Casting | **9** |
+| Array as Stacks and Queues | **9** |
 
 ### Web Features
 | Topic | Lesson |

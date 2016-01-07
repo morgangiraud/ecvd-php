@@ -4,7 +4,7 @@ require_once 'functions.php';
 require_once 'connect.php';
 
 if(!isset($_SESSION['id'])){ // The user must be logged in
-  ecvdphp\redirect('login.php');
+  ecvdphp\redirect('index.php');
 }
 
 $message = "";
@@ -79,6 +79,9 @@ include 'header.php';
       </fieldset>
     </form>
     <a href="delete.php">Delete your account now!</a>
+  </div>
+  <div>
+    <a href="post/new.php">Create a new post</a>
   </div>
 <?php
 include 'footer.php';
