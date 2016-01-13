@@ -1,6 +1,8 @@
 # ecvd-php
 Lessons for the ECV Digital school - PHP/MySQL
 
+You can find the website [here](http://morgangiraud.github.io/ecvd-php/)
+
 ## Setup
 Before starting you need to setup your environment.
 **(Mac OSX)**
