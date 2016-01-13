@@ -3,7 +3,7 @@
 
 *Pre-requisites: lesson 9*
 
-*ECV Digital - 06/01/2016*
+*ECV Digital - 07/01/2016*
 
 ---
 # String Basics
