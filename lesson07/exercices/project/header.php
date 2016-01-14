@@ -8,7 +8,8 @@
 require_once 'functions.php';
 
 use function ecvdphp\hasFlashMessage;
+use function ecvdphp\displayFlashMessage;
 
 if(hasFlashMessage()){
-  ecvdphp\displayFlashMessage();
+  displayFlashMessage();
 }

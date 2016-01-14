@@ -1,14 +1,16 @@
 <?php
 require_once 'session.php';
-require_once 'functions.php';
 require_once 'connect.php';
 
-$title = "Login page";
-include 'header.php';
+require_once 'functions.php';
+
+
 
 $message = "";
 if(isset($_SESSION['id'])){
   echo "<p>{$_SESSION['username']}: you are logged in!</p>";
+  $title = "Menu";
+  include 'header.php';
 ?>
 <a href="profile.php">My profile</a>
 <br>
@@ -19,24 +21,29 @@ if(isset($_SESSION['id'])){
   if (empty($_POST['username']) || empty($_POST['password']) ) {
     ecvdphp\addFlashMessage('error', 'Something went wrong. You must fill all the fields');
   } else {
-    $username = trim($_POST['username']); // To improve the ux of the user, you can trim the input
-    $password = trim($_POST['password']);
+    $username = ecvdphp\sanitizeString($_POST['username']); // To improve the ux of the user, you can trim the input
+    $password = ecvdphp\sanitizeString($_POST['password']);
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-    if($stmt->execute(array($username))){
-      $result = $stmt->fetchAll();      
-      if(count($result) === 1 && password_verify($password, $result[0]['password'])) {
-        $_SESSION['id'] = $result[0]["id"];
-        $_SESSION['username'] = $result[0]["username"];
+    try {
+      $user = ecvdphp\DB\login($username, $password);
 
-        ecvdphp\addFlashMessage('success', 'You\'ve successfully logged in');
-
-        ecvdphp\redirect($_SERVER['PHP_SELF']);
+      $_SESSION['id'] = $user["id"];
+      $_SESSION['username'] = $user["username"];
+      if($user["photo_id"]){
+        $_SESSION['photo_id'] = $user["photo_id"];
       }
+
+      ecvdphp\addFlashMessage('success', 'You\'ve successfully logged in');
+      ecvdphp\redirect("index.php");
+    } catch (Exception $e) {
+      ecvdphp\addFlashMessage('error', '<p>' . $e->getMessage() . '</p>');
     }
-    ecvdphp\addFlashMessage('error', 'Something went wrong. You must fill all the fields');
   }
+  $title = "Login page";
+  include 'header.php';
 }
+
+
 ?>
   <div>
     

@@ -1,30 +1,27 @@
 <?php
 require_once 'session.php';
-
 require_once 'connect.php';
+require_once 'functions.php';
 
 $message = "";
 if(isset($_SESSION['id'])){
   header('Location:index.php', true, 301);
   exit();
 } else if($_SERVER['REQUEST_METHOD'] === "POST"){
-  if (empty($_POST['pseudo']) || empty($_POST['password']) ) {
+  if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email']) ) {
     $message = '<p>Something went wrong. You must fill all the fields</p>';
   } else {
-    $pseudo = $_POST['pseudo'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $username = ecvdphp\sanitizeString($_POST['username']);
+    $email = ecvdphp\sanitizeString($_POST['email']);
+    $password = ecvdphp\sanitizeString($_POST['password']);
 
-    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-    $stmt->bindParam(1, trim($pseudo));
-    $stmt->bindParam(2, trim($email));
-    $stmt->bindParam(3, password_hash($password, PASSWORD_BCRYPT));
-    if($stmt->execute()){
-      header('Location:index.php', true, 301);
-      exit();
-    } else {
-      $message = '<p>Something went wrong. Username or password is wrong</p>';
-    }          
+    try {
+      ecvdphp\DB\register($username, $password, $email);
+
+      ecvdphp\redirect("index.php");
+    } catch (Exception $e) {
+      $message = '<p>' . $e->getMessage() . '</p>';
+    }
   }
 }
 include 'header.php';
@@ -35,8 +32,8 @@ include 'header.php';
       <fieldset>
         <legend>Register</legend>
         <p>
-          <label for="pseudo">Pseudo :</label>
-          <input name="pseudo" type="text" id="pseudo" /><br />
+          <label for="username">Pseudo :</label>
+          <input name="username" type="text" id="username" /><br />
 
           <label for="email">Email :</label>
           <input type="email" name="email" id="email" />
