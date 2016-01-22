@@ -3,42 +3,36 @@ require_once '../session.php';
 require_once '../functions.php';
 require_once '../connect.php';
 
-if(!isset($_SESSION['id'])){ // The user must be logged in
+if(!isset($_SESSION['id']) || !isset($_GET['id'])){ // The user must be logged in
   ecvdphp\redirect('../index.php');
 }
 
-if(!isset($_GET['id']) && $_GET['id'] != ''){ // The user must be logged in
-  ecvdphp\redirect('../index.php');
-}
 $postId = intval($_GET['id']);
 $post = ecvdphp\DB\Post\getPostById($postId);
 
-include '../header.php';
+if(empty($post)){
+    ecvdphp\redirect('../index.php');
+};
+
+ecvdphp\render('../header.php', [
+    'prefix' => "../"
+]);
 ?>
-  <div>
-    <form enctype="multipart/form-data" method="post" action="">
-      <fieldset>
-        <legend>New post</legend>
-        <p>
-          <label for="title">Title :</label>
-          <input name="title" type="text" id="title" value=""/>
-          <br />
-          <label for="body">Content :</label>
-          <textarea name="body" id="body" ></textarea>
-          <br />
-          <label for="filedata">Picture :</label>
-          <input name="filedata" type="file" />
-          <br>
-          <label for="file-url">Picture URL :</label>
-          <input name="file-url" size="64" type="text" />
-          <input type="submit" value="Send file" />
-        </p>
-      </fieldset>
-      <p>
-        <input type="submit" value="Update" />
-      </p>
-    </form>
+<div id="<?php echo "post-" . $post['id'];?>" class="post">
+    <p>
+        <?php echo $post['title']; ?>      
+    </p>
+    <p>
+        <?php echo $post['body']; ?>      
+    </p>
+    <?php 
+    if(isset($post['filename'])) {
+        echo "<img width='400px' src='" . $post['path'] . "/" . $post['filename'] . "." . $post['extension'] . "'>";
+    }
+    ?>
   </div>
 <?php
-include '../footer.php';
+ecvdphp\render('../footer.php', [
+    'prefix' => "../"
+]);
 ?>

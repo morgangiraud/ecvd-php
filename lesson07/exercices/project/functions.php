@@ -55,6 +55,32 @@ namespace ecvdphp {
         unset($_SESSION['flash-message']);
     }
 
+    function render($filename, array $vars = [])
+    {
+        if (file_exists($filename)) {
+            foreach ($vars as $name => $value) {
+                $$name = $value;
+            }
+
+            include $filename;
+        } else {
+            throw new Exception("Can't render this page", 1);
+        }
+
+        return;
+    }
+
+    function getUserFromSession()
+    {
+        $user = [
+            'id' => (int) $_SESSION['id'],
+            'username' => (string) $_SESSION['username'],
+            'photo_id' => !empty($_SESSION['photo_id']) ? (int) $_SESSION['photo_id'] : null,
+        ];
+
+        return $user;
+    }
+
     //
     function checkUploadedFile($filename)
     {
@@ -175,34 +201,41 @@ namespace ecvdphp\DB\Post {
     {
         global $conn;
 
-        $stmt = $conn->prepare('SELECT * FROM posts WHERE id=?');
+        $stmt = $conn->prepare('SELECT p.*, u.username, f.filename, f.path, f.extension FROM posts p
+            INNER JOIN users u on p.user_id = u.id
+            LEFT JOIN files f on p.image_id = f.id
+            WHERE p.id=?');
         $stmt->bindParam(1, $postId);
         $result = $stmt->execute();
 
-        return $result->fetch();
+        return $stmt->fetch();
     }
 
     function getPostsByUserId($userId)
     {
         global $conn;
 
-        $stmt = $conn->prepare('SELECT * FROM posts WHERE user_id=?');
+        $stmt = $conn->prepare('SELECT p.*, u.username, f.filename, f.path, f.extension FROM posts p
+            INNER JOIN users u on p.user_id = u.id
+            LEFT JOIN files f on p.image_id = f.id
+            WHERE user_id=? 
+            ORDER BY created_at DESC');
         $stmt->bindParam(1, $userId);
         $result = $stmt->execute();
 
-        return $result->fetchAll();
+        return $stmt->fetchAll();
     }
 
-    function getLastPosts()
+    function getLastPosts($limit = 10)
     {
         global $conn;
 
-        $stmt = $conn->prepare('SELECT * FROM posts 
-            INNER JOIN users on posts.user_id = users.id
-            LEFT JOIN files on users.photo_id = files.id
-            ORDER BY created_at ASC 
-            LIMIT 10'
-        );
+        $stmt = $conn->prepare('SELECT p.*, u.username, f.filename, f.path, f.extension FROM posts p
+            INNER JOIN users u on p.user_id = u.id
+            LEFT JOIN files f on u.image_id = files.id
+            ORDER BY created_at DESC 
+            LIMIT ?');
+        $stmt->bindParam(1, $limit);
         $result = $stmt->execute();
 
         return $stmt->fetchAll();
@@ -237,5 +270,15 @@ namespace ecvdphp\DB\Post {
         $conn->commit();
 
         return $postId;
+    }
+
+    function deletePostById($postId)
+    {
+        global $conn;
+
+        $stmt = $conn->prepare('DELETE FROM posts WHERE p.id=?');
+        $stmt->bindParam(1, $postId);
+        
+        return $stmt->execute();
     }
 }
